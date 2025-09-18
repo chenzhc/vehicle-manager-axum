@@ -1,3 +1,11 @@
 #get index
-http://localhost:5000/
+GET http://localhost:5000/
+
+#####
+#get vehicle
+GET http://localhost:5000/vehicle
+
+#####
+#post vehicle
+POST http://localhost:5000/vehicle
 

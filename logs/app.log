@@ -7664,3 +7664,13 @@ test,test2
 2025-09-18 18:03:36 INFO src\box_rc_test.rs:122 - after wait
 2025-09-18 18:03:36 INFO src\box_rc_test.rs:122 - after wait
 2025-09-18 18:03:36 INFO src\box_rc_test.rs:122 - after wait
+2025-09-18 21:51:29 INFO src/main.rs:37 - Starting server on 0.0.0.0:5000
+2025-09-18 22:10:02 INFO src/main.rs:38 - Starting server on 0.0.0.0:5000
+2025-09-18 22:15:38 INFO src/main.rs:40 - Starting server on 0.0.0.0:5000
+2025-09-18 22:28:56 INFO src/main.rs:40 - Starting server on 0.0.0.0:5000
+2025-09-18 22:30:11 INFO src/main.rs:40 - Starting server on 0.0.0.0:5000
+2025-09-18 22:30:13 INFO src/main.rs:58 - Caller retrieved a vehicle from auxm
+2025-09-18 22:30:16 INFO src/main.rs:58 - Caller retrieved a vehicle from auxm
+2025-09-18 22:30:17 INFO src/main.rs:58 - Caller retrieved a vehicle from auxm
+2025-09-18 22:30:17 INFO src/main.rs:58 - Caller retrieved a vehicle from auxm
+2025-09-18 22:30:17 INFO src/main.rs:58 - Caller retrieved a vehicle from auxm
