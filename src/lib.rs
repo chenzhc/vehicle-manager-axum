@@ -6,6 +6,7 @@
 #![allow(unused_variables)]
 use dotenv::dotenv;
 use log::info;
+use tracing::Subscriber;
 
 
 
@@ -19,4 +20,19 @@ pub fn init() {
     //     .filter_level(log::LevelFilter::Trace)
     //     .is_test(true)
     //     .try_init();
+}
+
+pub fn setup_subscribers() -> Box<impl Subscriber + Send + 'static> {
+    let file = tracing_appender::rolling::hourly("./logs", "application.log");
+    let (non_blocking, _guard) = tracing_appender::non_blocking(file);
+
+    let console = Layer::new()
+        .with_writer(std::io::stdout)
+        .pretty();
+
+    let inspector = Layer::new()
+        .with_writer(non_blocking)
+        .json();
+
+    Box::new(tracing_subscriber::registry().with(console).with(inspector))
 }
