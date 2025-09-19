@@ -7674,3 +7674,95 @@ test,test2
 2025-09-18 22:30:17 INFO src/main.rs:58 - Caller retrieved a vehicle from auxm
 2025-09-18 22:30:17 INFO src/main.rs:58 - Caller retrieved a vehicle from auxm
 2025-09-18 22:30:17 INFO src/main.rs:58 - Caller retrieved a vehicle from auxm
+2025-09-19 08:54:22 INFO src\box_rc_test.rs:123 - Thread: 4
+2025-09-19 08:54:22 INFO src\box_rc_test.rs:126 - Main: 3
+2025-09-19 09:12:51 INFO src\box_rc_test.rs:141 - 1
+2025-09-19 09:12:57 INFO src\box_rc_test.rs:141 - 1
+2025-09-19 09:13:24 INFO src\box_rc_test.rs:126 - init val one
+2025-09-19 09:13:24 INFO src\box_rc_test.rs:143 - 1
+2025-09-19 09:54:17 INFO src\box_rc_test.rs:129 - receive 1
+2025-09-19 10:07:32 INFO src\box_rc_test.rs:129 - receiveErr(Empty)
+2025-09-19 10:08:41 INFO src\box_rc_test.rs:129 - receiveErr(Empty)
+2025-09-19 10:08:41 INFO src\box_rc_test.rs:130 - receiveOk(1)
+2025-09-19 10:08:41 INFO src\box_rc_test.rs:131 - receiveErr(Disconnected)
+2025-09-19 10:08:41 INFO src\box_rc_test.rs:132 - receiveErr(Disconnected)
+2025-09-19 10:08:41 INFO src\box_rc_test.rs:133 - receiveErr(Disconnected)
+2025-09-19 10:08:41 INFO src\box_rc_test.rs:134 - receiveErr(Disconnected)
+2025-09-19 10:12:03 INFO src\box_rc_test.rs:131 - Got: 我，飞走咯！
+2025-09-19 10:14:24 INFO src\box_rc_test.rs:140 - Got: hi
+2025-09-19 10:14:25 INFO src\box_rc_test.rs:140 - Got: from
+2025-09-19 10:14:26 INFO src\box_rc_test.rs:140 - Got: the
+2025-09-19 10:14:27 INFO src\box_rc_test.rs:140 - Got: thread
+2025-09-19 10:17:09 INFO src\box_rc_test.rs:133 - Got: hi from cloned tx
+2025-09-19 10:17:09 INFO src\box_rc_test.rs:133 - Got: hi from raw tx
+2025-09-19 10:17:58 INFO src\box_rc_test.rs:133 - Got: hi from raw tx
+2025-09-19 10:17:58 INFO src\box_rc_test.rs:133 - Got: hi from cloned tx
+2025-09-19 10:18:06 INFO src\box_rc_test.rs:133 - Got: hi from raw tx
+2025-09-19 10:18:06 INFO src\box_rc_test.rs:133 - Got: hi from cloned tx
+2025-09-19 10:18:09 INFO src\box_rc_test.rs:133 - Got: hi from raw tx
+2025-09-19 10:18:09 INFO src\box_rc_test.rs:133 - Got: hi from cloned tx
+2025-09-19 10:18:12 INFO src\box_rc_test.rs:133 - Got: hi from raw tx
+2025-09-19 10:18:12 INFO src\box_rc_test.rs:133 - Got: hi from cloned tx
+2025-09-19 10:35:19 INFO src\box_rc_test.rs:130 - 睡眠之前
+2025-09-19 10:35:19 INFO src\box_rc_test.rs:125 - 发送之前
+2025-09-19 10:35:19 INFO src\box_rc_test.rs:127 - 发送之后
+2025-09-19 10:35:22 INFO src\box_rc_test.rs:132 - 睡眠之后
+2025-09-19 10:35:22 INFO src\box_rc_test.rs:134 - received 1
+2025-09-19 10:54:36 INFO src\box_rc_test.rs:130 - 睡眠之前
+2025-09-19 10:54:36 INFO src\box_rc_test.rs:125 - 发关之前
+2025-09-19 10:54:39 INFO src\box_rc_test.rs:132 - 睡眠之后
+2025-09-19 10:54:39 INFO src\box_rc_test.rs:134 - received: 1
+2025-09-19 10:54:39 INFO src\box_rc_test.rs:127 - 发送之后
+2025-09-19 10:54:51 INFO src\box_rc_test.rs:130 - 睡眠之前
+2025-09-19 10:54:51 INFO src\box_rc_test.rs:125 - 发关之前
+2025-09-19 10:54:54 INFO src\box_rc_test.rs:132 - 睡眠之后
+2025-09-19 10:54:54 INFO src\box_rc_test.rs:134 - received: 1
+2025-09-19 10:54:54 INFO src\box_rc_test.rs:127 - 发送之后
+2025-09-19 11:02:09 INFO src\box_rc_test.rs:135 - received sweet orangle
+2025-09-19 11:02:09 INFO src\box_rc_test.rs:134 - received 2 apples
+2025-09-19 11:02:18 INFO src\box_rc_test.rs:135 - received sweet orangle
+2025-09-19 11:02:31 INFO src\box_rc_test.rs:135 - received sweet orangle
+2025-09-19 11:02:31 INFO src\box_rc_test.rs:134 - received 2 apples
+2025-09-19 11:02:41 INFO src\box_rc_test.rs:135 - received sweet orangle
+2025-09-19 11:06:42 INFO src\box_rc_test.rs:134 - thread 0 finished
+2025-09-19 11:06:42 INFO src\box_rc_test.rs:134 - thread 1 finished
+2025-09-19 11:06:42 INFO src\box_rc_test.rs:141 - Got: 0
+2025-09-19 11:06:42 INFO src\box_rc_test.rs:134 - thread 2 finished
+2025-09-19 11:06:42 INFO src\box_rc_test.rs:141 - Got: 1
+2025-09-19 11:06:42 INFO src\box_rc_test.rs:141 - Got: 2
+2025-09-19 11:06:42 INFO src\box_rc_test.rs:143 - finished iterating
+2025-09-19 11:33:51 INFO src\box_rc_test.rs:134 - m = Mutex { data: 6, poisoned: false, .. }
+2025-09-19 11:38:57 INFO src\box_rc_test.rs:134 - m = 6
+2025-09-19 13:17:38 INFO src\box_rc_test.rs:138 - m = 7
+2025-09-19 13:23:08 INFO src\box_rc_test.rs:145 - Result: 10
+2025-09-19 13:42:02 INFO src\box_rc_test.rs:153 - 线程 1 锁住了 MUTEX2, 接着准备去锁 MUTEX1!
+2025-09-19 13:42:02 INFO src\box_rc_test.rs:142 - 线程 0 锁住了 MUTEX1, 接着准备去锁 MUTEX2!
+2025-09-19 13:44:41 INFO src\box_rc_test.rs:142 - 线程 0 锁住了 MUTEX1, 接着准备去锁 MUTEX2!
+2025-09-19 13:44:41 INFO src\box_rc_test.rs:153 - 线程 1 锁住了 MUTEX2, 接着准备去锁 MUTEX1!
+2025-09-19 13:44:41 INFO src\box_rc_test.rs:168 - 死锁没有发生
+2025-09-19 13:45:41 INFO src\box_rc_test.rs:142 - 线程 0 锁住了 MUTEX1, 接着准备去锁 MUTEX2!
+2025-09-19 13:45:41 INFO src\box_rc_test.rs:154 - 线程 1 锁住了 MUTEX2, 接着准备去锁 MUTEX1!
+2025-09-19 13:45:41 INFO src\box_rc_test.rs:169 - 死锁没有发生
+2025-09-19 13:46:08 INFO src\box_rc_test.rs:142 - 线程 0 锁住了 MUTEX1, 接着准备去锁 MUTEX2!
+2025-09-19 13:46:08 INFO src\box_rc_test.rs:154 - 线程 1 锁住了 MUTEX2, 接着准备去锁 MUTEX1!
+2025-09-19 13:46:08 INFO src\box_rc_test.rs:149 - 线程 0 获取 MUTEX2 锁的结果: Err("WouldBlock")
+2025-09-19 13:46:08 INFO src\box_rc_test.rs:157 - 线程 1 获取 MUTEX1 锁的结果: Ok(0)
+2025-09-19 13:46:08 INFO src\box_rc_test.rs:169 - 死锁没有发生
+2025-09-19 13:52:17 INFO src\box_rc_test.rs:141 - 5
+2025-09-19 13:52:17 INFO src\box_rc_test.rs:142 - 5
+2025-09-19 13:52:17 INFO src\box_rc_test.rs:147 - 6
+2025-09-19 13:54:20 INFO src\box_rc_test.rs:143 - 5
+2025-09-19 13:54:20 INFO src\box_rc_test.rs:144 - 5
+2025-09-19 13:54:20 INFO src\box_rc_test.rs:151 - 6
+2025-09-19 14:11:58 INFO src\box_rc_test.rs:170 - outside counter: 1
+2025-09-19 14:11:58 INFO src\box_rc_test.rs:158 - inner counter: 1
+2025-09-19 14:11:59 INFO src\box_rc_test.rs:170 - outside counter: 2
+2025-09-19 14:11:59 INFO src\box_rc_test.rs:158 - inner counter: 2
+2025-09-19 14:12:00 INFO src\box_rc_test.rs:170 - outside counter: 3
+2025-09-19 14:12:00 INFO src\box_rc_test.rs:158 - inner counter: 3
+2025-09-19 14:12:01 INFO src\box_rc_test.rs:175 - Mutex { data: true, poisoned: false, .. }
+2025-09-19 14:22:06 INFO src\box_rc_test.rs:143 - thread...
+2025-09-19 14:22:06 INFO src\box_rc_test.rs:143 - thread...
+2025-09-19 14:22:06 INFO src\box_rc_test.rs:143 - thread...
+2025-09-19 14:22:06 INFO src\box_rc_test.rs:143 - thread...
+2025-09-19 14:22:06 INFO src\box_rc_test.rs:143 - thread...

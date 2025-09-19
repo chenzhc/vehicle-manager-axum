@@ -2262,6 +2262,7 @@ dependencies = [
  "dotenvy",
  "futures",
  "inquire",
+ "lazy_static",
  "log",
  "log4rs",
  "mini-redis",

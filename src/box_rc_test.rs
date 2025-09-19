@@ -5,8 +5,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 use core::borrow;
-use std::{cell::{RefCell, UnsafeCell}, marker::PhantomPinned, pin::Pin, ptr::NonNull, rc::{Rc, Weak}};
-
+use std::{cell::{RefCell, UnsafeCell}, marker::PhantomPinned, pin::Pin, ptr::NonNull, rc::{Rc, Weak}, sync::{Mutex, Once}};
+use lazy_static::lazy_static;
 
 // 主人
 struct Owner {
@@ -101,12 +101,426 @@ impl Unmoveable {
     }
 }
 
+thread_local! {
+    static FOO: RefCell<i32> = RefCell::new(1);
+}
+
+
+static mut VAL: usize = 0;
+static INIT: Once = Once::new();
+
+enum Fruit {
+    Apple(u8),
+    Orange(String),
+}
+
+lazy_static! {
+    static ref MUTEX1: Mutex<i64> = Mutex::new(0);
+    static ref MUTEX2: Mutex<i64> = Mutex::new(0);
+}
 
 #[cfg(test)]
 mod tests {
-    use std::{cell::{Cell, RefCell}, rc::Rc, sync::{Arc, Barrier}, thread, time::Duration};
+    use core::num;
+    use std::{cell::{Cell, RefCell}, rc::Rc, 
+     sync::{mpsc::{self, Receiver, Sender}, Arc, Barrier, Condvar, Mutex, RwLock}, 
+     thread, time::Duration};
     use log::info;
+    use smol::fs::windows;
+    use tokio::sync::Semaphore;
     use super::*;
+
+    #[tokio::test]
+    async fn it_semaphore_test() {
+        crate::init();
+        let semaphore = Arc::new(Semaphore::new(3));
+        let mut join_handles = Vec::new();
+
+        for _ in 0..5 {
+            let permit = semaphore.clone().acquire_owned().await.unwrap();
+            join_handles.push(tokio::spawn(async move {
+
+                info!("thread...");
+                drop(permit);
+            }));
+        }
+
+        for handle in join_handles {
+            handle.await.unwrap();
+        }
+    }
+
+    #[test]
+    fn it_cond_test01() {
+        crate::init();
+        let flag = Arc::new(Mutex::new(false));
+        let cond = Arc::new(Condvar::new());
+        let cflag = flag.clone();
+        let ccond = cond.clone();
+
+        let hdl = thread::spawn(move || {
+            let mut lock = cflag.lock().unwrap();
+            let mut counter = 0;
+
+            while counter < 3 {
+                while !*lock {
+                    // wait 方法会接收一个 MutexGuard<'a, T>, 
+                    // 且它会自动地暂时释放这个锁， 使其他线程可
+                    // 以拿到锁并进行数据更新.
+                    // 同时当前线程在此处会被阻塞，直到被其他地方 notify后，
+                    // 它会将原本的 MutexGuard<'a, T> 还给我们，即重新获取
+                    // 到了锁，同时唤醒了此线程.
+                    lock = ccond.wait(lock).unwrap();
+                }
+
+                *lock = false;
+
+                counter += 1;
+                info!("inner counter: {}", counter);
+            }
+        });
+
+        let mut counter = 0;
+        loop {
+            thread::sleep(Duration::from_millis(1000));
+            *flag.lock().unwrap() = true;
+            counter += 1;
+            if counter > 3 {
+                break;
+            }
+            info!("outside counter: {}", counter);
+            cond.notify_one();
+        }
+
+        hdl.join().unwrap();
+        info!("{:?}", flag);
+    }
+
+    #[test]
+    fn it_rwlock_test() {
+        crate::init();
+
+        let lock = RwLock::new(5);
+
+        // 同一时间允许多个读
+        {
+            let r1 = lock.read().unwrap();
+            let r2 = lock.read().unwrap();
+            info!("{}", *r1);
+            info!("{}", *r2);
+        } // 读锁在些外被 drop 
+
+        // 同一时间只允许一个写
+        {
+            let mut w = lock.write().unwrap();
+            *w += 1;
+            info!("{}", *w);
+
+            // 以下代码会阻塞发生死锁， 因为读和写不允许同时存在
+            // 写锁直到该语句块结束才被释放，因此下面的读锁依然处理 w 的作用域中
+            // let r1 = lock.read();
+            // info!("{:?}", r1);
+        } // 写锁在此处被 drop 
+    }
+
+    #[test]
+    fn it_dead_lock_test2() {
+        crate::init();
+        // 存放子线程的句柄
+        let mut children = vec![];
+        for i_thread in 0..2 {
+            let cd1 = thread::spawn(move || {
+                for _ in 0..1 {
+                    // 线程
+                    if i_thread % 2 == 0 {
+                        // 锁住 MUTEX1 
+                        let guard = MUTEX1.lock().unwrap();
+                        info!("线程 {} 锁住了 MUTEX1, 接着准备去锁 MUTEX2!", i_thread);
+
+                        // 当前线程睡眠一小会儿， 等待线程2锁住 MUTEX2
+                        thread::sleep(Duration::from_millis(10));
+
+                        // 去锁 MUTEX2
+                        let guard = MUTEX2.try_lock();
+                        info!("线程 {} 获取 MUTEX2 锁的结果: {:?}", i_thread, guard);
+                    } else {
+                        // 线程2 
+                        // 锁住 MUTEX2
+                        let _guard = MUTEX2.lock().unwrap();
+                        info!("线程 {} 锁住了 MUTEX2, 接着准备去锁 MUTEX1!", i_thread);
+                        thread::sleep(Duration::from_millis(10));
+                        let guard = MUTEX1.try_lock();
+                        info!("线程 {} 获取 MUTEX1 锁的结果: {:?}", i_thread, guard);
+                    }
+                }
+            });
+            children.push(cd1);
+        }
+
+        // 等子线程完成 
+        for child in children {
+            let _ = child.join();
+        }
+
+        info!("死锁没有发生");
+    }
+
+    #[test]
+    fn it_dead_lock_test() {
+        crate::init();
+        let data = Mutex::new(0);
+        let d1 = data.lock();
+        let d2 = data.lock();
+
+    }
+
+    #[test]
+    fn it_channel_test10() {
+        crate::init();
+
+        let counter = Arc::new(Mutex::new(0));
+        let mut handles = vec![];
+
+        for _ in 0..10 {
+            let counter = Arc::clone(&counter);
+            let handle = thread::spawn(move || {
+                let mut num = counter.lock().unwrap();
+                *num += 1;
+            });
+            handles.push(handle);
+        }
+
+        for handle in handles {
+            handle.join().unwrap();
+        }
+
+        info!("Result: {}", *counter.lock().unwrap());
+    }
+
+    #[test]
+    fn it_channel_test09() {
+        crate::init();
+        let m = Mutex::new(5);
+
+        let mut num = m.lock().unwrap();
+        *num = 6;
+        drop(num);
+
+        let mut num1 = m.lock().unwrap();
+        *num1 = 7;
+        drop(num1);
+
+        info!("m = {}", m.lock().unwrap());
+
+    }
+
+    #[test]
+    fn it_channel_test08() {
+        crate::init();
+        // 使用 Mutex 结构体的关联函数创建新的互斥锁实例
+        let m = Mutex::new(5);
+        {
+            let mut num = m.lock().unwrap();
+            *num = 6;
+        }
+        info!("m = {}", *m.lock().unwrap());
+
+    }
+
+    #[test]
+    fn it_channel_test07() {
+        crate::init();
+        let (tx, rx) = mpsc::channel();
+        let num_threads = 3;
+        for i in 0..num_threads {
+            let thread_send = tx.clone();
+            thread::spawn(move || {
+                thread_send.send(i).unwrap();
+                info!("thread {:?} finished", i);
+            });
+        }
+
+        drop(tx);
+
+        for x in rx {
+            info!("Got: {}", x);
+        }
+        info!("finished iterating");
+    }
+
+    #[test]
+    fn it_channel_type_test01() {
+        crate::init();
+        let (tx, rx): (Sender<Fruit>, Receiver<Fruit>) = mpsc::channel();
+
+        tx.send(Fruit::Orange("sweet".to_string())).unwrap();
+        tx.send(Fruit::Apple(2)).unwrap();
+
+        for _ in 0..2 {
+            match rx.recv().unwrap() {
+                Fruit::Apple(count) => info!("received {} apples", count),
+                Fruit::Orange(flavor) => info!("received {} orangle", flavor),
+            }
+        }
+    }
+
+    #[test]
+    fn it_channel_test06() {
+        crate::init();
+        let (tx, rx) = mpsc::sync_channel(0);
+
+        let handle = thread::spawn(move || {
+            info!("发关之前");
+            tx.send(1).unwrap();
+            info!("发送之后");
+        });
+
+        info!("睡眠之前");
+        thread::sleep(Duration::from_secs(3));
+        info!("睡眠之后");
+
+        info!("received: {}", rx.recv().unwrap());
+        handle.join().unwrap();
+
+    }
+
+    #[test]
+    fn it_channel_test05() {
+        crate::init();
+        let (tx, rx) = mpsc::channel();
+
+        let handle = thread::spawn(move || {
+            info!("发送之前");
+            tx.send(1).unwrap();
+            info!("发送之后");
+        });
+
+        info!("睡眠之前");
+        thread::sleep(Duration::from_secs(3));
+        info!("睡眠之后");
+
+        info!("received {}", rx.recv().unwrap());
+        handle.join().unwrap();
+
+    }
+
+    #[test]
+    fn it_channel_test04() {
+        crate::init();
+        let (tx, rx) = mpsc::channel();
+        let tx1 = tx.clone();
+        thread::spawn(move || {
+            tx.send(String::from("hi from raw tx")).unwrap();
+        });
+
+        thread::spawn(move || {
+            tx1.send(String::from("hi from cloned tx")).unwrap();
+        });
+
+        for received in rx {
+            info!("Got: {}", received);
+        }
+    }
+
+    #[test]
+    fn it_channel_test03() {
+        crate::init();
+
+        let (tx, rx) = mpsc::channel();
+
+        thread::spawn(move || {
+            let vals = vec![
+                String::from("hi"),
+                String::from("from"),
+                String::from("the"),
+                String::from("thread"),
+            ];
+
+            for val in vals {
+                tx.send(val).unwrap();
+                thread::sleep(Duration::from_secs(1));
+            }
+        });
+
+        for received in rx {
+            info!("Got: {}", received);
+        }
+    }
+
+    #[test]
+    fn it_channel_test02() {
+        crate::init();
+        let (tx, rx) = mpsc::channel();
+
+        thread::spawn(move || {
+            let s = String::from("我，飞走咯！");
+            tx.send(s).unwrap();
+            // info!("val is {}", s);
+        });
+
+        let received = rx.recv().unwrap();
+        info!("Got: {}", received);
+
+    }
+
+    #[test]
+    fn it_channel_test() {
+        crate::init();
+        let (tx, rx) = mpsc::channel();
+
+        thread::spawn(move || {
+            tx.send(1).unwrap();
+        });
+
+        // info!("receive {}", rx.recv().unwrap());
+        info!("receive{:?}", rx.try_recv());
+        info!("receive{:?}", rx.try_recv());
+        info!("receive{:?}", rx.try_recv());
+
+    }
+
+    #[test]
+    fn it_once_init_test() {
+        crate::init();
+        let handle1 = thread::spawn(move || {
+            INIT.call_once(|| {
+                unsafe {
+                    VAL = 1;
+                    info!("init val one");
+                }
+            });
+        });
+
+        let handle2 = thread::spawn(move || {
+            INIT.call_once(||{
+                unsafe {
+                    VAL = 2;
+                    info!("init val two");
+                }
+            });
+        });
+
+        handle1.join().unwrap();
+        handle2.join().unwrap();
+
+        info!("{}", unsafe {
+            VAL
+        });
+
+    }
+
+    #[test]
+    fn it_thread_local_test() {
+        crate::init();
+        FOO.with(|f| *f.borrow_mut() += 2);
+
+        thread::spawn(|| {
+            FOO.with(|f| *f.borrow_mut() += 3);
+            FOO.with(|f| info!("Thread: {}", f.borrow()));
+        }).join().unwrap();
+
+        FOO.with(|f| info!("Main: {}", f.borrow()));
+    }
 
     #[test]
     fn it_barrier_test() {
