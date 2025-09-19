@@ -5,8 +5,9 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 use core::borrow;
-use std::{cell::{RefCell, UnsafeCell}, marker::PhantomPinned, pin::Pin, ptr::NonNull, rc::{Rc, Weak}, sync::{Mutex, Once}};
+use std::{cell::{RefCell, UnsafeCell}, collections::HashMap, marker::PhantomPinned, pin::Pin, ptr::NonNull, rc::{Rc, Weak}, sync::{atomic::{AtomicU64, AtomicUsize, Ordering}, LazyLock, Mutex, Once, OnceLock}, thread::{self, JoinHandle}};
 use lazy_static::lazy_static;
+use log::info;
 
 // 主人
 struct Owner {
@@ -119,16 +120,257 @@ lazy_static! {
     static ref MUTEX2: Mutex<i64> = Mutex::new(0);
 }
 
+const N_TIMES: u64 = 10_000_000;
+const N_THREADS: usize = 10;
+
+static R: AtomicU64 = AtomicU64::new(0);
+
+fn add_n_times(n: u64) -> JoinHandle<()> {
+    thread::spawn(move || {
+        for _ in 0..n {
+            R.fetch_add(1, Ordering::Relaxed);
+        }
+    })
+}
+
+#[derive(Debug)]
+struct MyBox(*const u8);
+unsafe impl Send for MyBox {
+
+}
+unsafe impl Sync for MyBox {
+
+}
+
+const MAX_ID: usize = usize::MAX / 2;
+static REQUEST_RECV: AtomicUsize  = AtomicUsize::new(0);
+
+struct Factory {
+    factory_id: usize,
+}
+
+static GLOBAL_ID_COUNTER: AtomicUsize = AtomicUsize::new(0);
+
+fn generate_id() -> usize {
+    let current_val = GLOBAL_ID_COUNTER.load(Ordering::Relaxed);
+    if current_val > MAX_ID {
+        panic!("Factory ids overflowed");
+    }
+    GLOBAL_ID_COUNTER.fetch_add(1, Ordering::Relaxed);
+    let next_id = GLOBAL_ID_COUNTER.load(Ordering::Relaxed);
+    if next_id > MAX_ID {
+        panic!("Factory ids overflowed");
+    }
+    return next_id;
+}
+
+impl Factory {
+    fn new() -> Self {
+        Self {
+            factory_id: generate_id()
+        }
+    }
+}
+
+lazy_static! {
+    static ref NAMES: Mutex<String> = Mutex::new(String::from("Sunface, Jack, Allen"));
+    static ref HASHMAP: HashMap<u32, &'static str> = {
+        let mut m = HashMap::new();
+        m.insert(0, "foo");
+        m.insert(1, "bar");
+        m.insert(2, "baz");
+        m
+    };
+}
+
+#[derive(Debug)]
+struct Config {
+    a: String,
+    b: String,
+}
+static mut CONFIG: Option<&mut Config> = None;
+
+fn init() -> Option<&'static mut Config> {
+    let c = Box::new(Config {
+        a: "A".to_string(), 
+        b: "B".to_string(), 
+    });
+
+    Some(Box::leak(c))
+}
+
+#[derive(Debug)]
+struct Logger;
+
+static LOGGER: OnceLock<Logger> = OnceLock::new();
+static LOGGER2: LazyLock<Logger> = LazyLock::new(Logger::new);
+
+impl Logger {
+    fn new() -> Logger {
+        info!("Logger is being created...");
+        Logger
+    }
+
+    fn global() -> &'static Logger {
+        // 获取或初始化 Logger 
+        LOGGER.get_or_init(|| {
+            // 初始化打印
+            info!("Logger is being created...");
+            Logger
+        })
+    }
+
+    fn log(&self, message: String) {
+        info!("{}", message);
+    }
+}
+
+
+
 #[cfg(test)]
 mod tests {
     use core::num;
-    use std::{cell::{Cell, RefCell}, rc::Rc, 
-     sync::{mpsc::{self, Receiver, Sender}, Arc, Barrier, Condvar, Mutex, RwLock}, 
-     thread, time::Duration};
+    use std::{cell::{Cell, RefCell}, f32::consts::LOG10_2, hint, rc::Rc, sync::{atomic::AtomicUsize, mpsc::{self, Receiver, Sender}, Arc, Barrier, Condvar, Mutex, RwLock}, thread, time::{Duration, Instant}};
     use log::info;
     use smol::fs::windows;
     use tokio::sync::Semaphore;
     use super::*;
+
+    #[test]
+    fn it_lazylock_test01() {
+        crate::init();
+        // 子线程中调用
+        let handle = thread::spawn(|| {
+            let logger = &LOGGER2;
+            logger.log("thread message".to_string());
+        });
+
+        // 主线程调用
+        let logger = &LOGGER2;
+        logger.log("some message".to_string());
+
+        let logger2 = &LOGGER2;
+        logger2.log("other message".to_string());
+
+        handle.join().unwrap();
+    }
+
+    #[test]
+    fn it_logger_test01() {
+        crate::init();
+        // 子线程中调用
+        let handle = thread::spawn(|| {
+            let logger = Logger::global();
+            logger.log("thread message".to_string());
+
+        });
+
+        // 主线程调用
+        let logger = Logger::global();
+        logger.log("some message".to_string());
+
+        let logger2 = Logger::global();
+        logger2.log("other message".to_string());
+        handle.join().unwrap();
+    }
+
+    #[test]
+    fn it_config_test01() {
+        unsafe {
+            CONFIG = init();
+        }
+    }
+
+    #[test]
+    fn it_static_test02() {
+        crate::init();
+        for _ in 0..10 {
+            REQUEST_RECV.fetch_add(1, Ordering::Relaxed);
+        }
+        info!("当前用户请求数 {:?}", REQUEST_RECV.load(Ordering::Relaxed));
+
+        let factory = Factory::new();
+        info!("{:?}", factory.factory_id);
+
+        let mut v = NAMES.lock().unwrap();
+        v.push_str(", Myth");
+        info!("{}", v);
+
+        info!("The entry for '0' is {}", HASHMAP.get(&0).unwrap());
+        info!("The entry for 1 is {}", HASHMAP.get(&1).unwrap());
+
+    }
+
+    #[test]
+    fn it_const_test01() {
+        crate::init();
+        info!("用户ID允许的最大值是 {}", MAX_ID);
+
+    }
+
+    #[test]
+    fn it_atomic_test03() {
+        crate::init();
+        let b = &MyBox(5 as *const u8);
+        let v = Arc::new(Mutex::new(b));
+        let t = thread::spawn(move || {
+            let v1 = v.lock().unwrap();
+            info!("{:?}", v1);
+        });
+
+        t.join().unwrap();
+    }
+
+    #[test]
+    fn it_mybox_test01() {
+        crate::init();
+        let p = MyBox(5 as *const u8);
+        let t = thread::spawn(move || {
+            info!("{:?}", p);
+        });
+        t.join().unwrap();
+    }
+
+    #[test]
+    fn it_atomic_test02() {
+        crate::init();
+        let spinlock = Arc::new(AtomicUsize::new(1));
+
+        let spinlock_clone = Arc::clone(&spinlock);
+        let thread = thread::spawn(move || {
+            spinlock_clone.store(0, Ordering::SeqCst);
+            info!("thread...");
+        });
+
+        // 等待其它线程释放锁
+        while spinlock.load(Ordering::SeqCst) != 0 {
+            info!("whil....");
+            hint::spin_loop();
+        }
+
+        if let Err(panic) = thread.join() {
+            info!("Thread had an error: {:?}", panic);
+        }
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn it_atomic_test01() {
+        crate::init();
+        let s = Instant::now();
+        let mut threads = Vec::with_capacity(N_THREADS);
+
+        for _ in 0..N_THREADS {
+            threads.push(add_n_times(N_TIMES));
+        }
+
+        for thread in threads {
+            thread.join().unwrap();
+        }
+
+        info!("{}", R.load(Ordering::Relaxed));
+        info!("{:?}", Instant::now().duration_since(s));
+
+    }
 
     #[tokio::test]
     async fn it_semaphore_test() {

@@ -7766,3 +7766,57 @@ test,test2
 2025-09-19 14:22:06 INFO src\box_rc_test.rs:143 - thread...
 2025-09-19 14:22:06 INFO src\box_rc_test.rs:143 - thread...
 2025-09-19 14:22:06 INFO src\box_rc_test.rs:143 - thread...
+2025-09-19 14:36:30 INFO src\box_rc_test.rs:160 - 100000000
+2025-09-19 14:36:30 INFO src\box_rc_test.rs:161 - 1.82257s
+2025-09-19 14:39:04 INFO src\box_rc_test.rs:160 - 100000000
+2025-09-19 14:39:04 INFO src\box_rc_test.rs:161 - 1.8809913s
+2025-09-19 14:41:00 INFO src\box_rc_test.rs:160 - 100000000
+2025-09-19 14:41:00 INFO src\box_rc_test.rs:161 - 1.7753679s
+2025-09-19 14:42:18 INFO src\box_rc_test.rs:160 - 100000000
+2025-09-19 14:42:18 INFO src\box_rc_test.rs:161 - 1.7941417s
+2025-09-19 14:43:11 INFO src\box_rc_test.rs:160 - 100000000
+2025-09-19 14:43:11 INFO src\box_rc_test.rs:161 - 1.8459751s
+2025-09-19 14:54:05 INFO src\box_rc_test.rs:157 - whil....
+2025-09-19 14:54:05 INFO src\box_rc_test.rs:152 - thread...
+2025-09-19 15:06:08 INFO src\box_rc_test.rs:155 - MyBox(0x5)
+2025-09-19 15:17:07 INFO src\box_rc_test.rs:171 - MyBox(0x5)
+2025-09-19 15:17:13 INFO src\box_rc_test.rs:160 - MyBox(0x5)
+2025-09-19 15:22:02 INFO src\box_rc_test.rs:159 - 用户ID允许的最大值是 9223372036854775807
+2025-09-19 15:23:56 INFO src\box_rc_test.rs:159 - 用户ID允许的最大值是 10
+2025-09-19 15:23:56 INFO src\box_rc_test.rs:162 - 10
+2025-09-19 15:31:53 INFO src\box_rc_test.rs:159 - 用户ID允许的最大值是 9223372036854775807
+2025-09-19 15:39:56 INFO src\box_rc_test.rs:162 - 当前用户请求数 10
+2025-09-19 15:47:09 INFO src\box_rc_test.rs:189 - 当前用户请求数 10
+2025-09-19 15:47:09 INFO src\box_rc_test.rs:192 - 1
+2025-09-19 15:51:50 INFO src\box_rc_test.rs:193 - 当前用户请求数 10
+2025-09-19 15:51:50 INFO src\box_rc_test.rs:196 - 1
+2025-09-19 15:51:50 INFO src\box_rc_test.rs:200 - Sunface, Jack, Allen, Myth
+2025-09-19 15:54:15 INFO src\box_rc_test.rs:200 - 当前用户请求数 10
+2025-09-19 15:54:15 INFO src\box_rc_test.rs:203 - 1
+2025-09-19 15:54:15 INFO src\box_rc_test.rs:207 - Sunface, Jack, Allen, Myth
+2025-09-19 15:54:15 INFO src\box_rc_test.rs:209 - The entry for '0' is foo
+2025-09-19 15:54:15 INFO src\box_rc_test.rs:210 - The entry for 1 is bar
+2025-09-19 16:16:30 INFO src\box_rc_test.rs:210 - Logger is being created...
+2025-09-19 16:16:30 INFO src\box_rc_test.rs:216 - some message
+2025-09-19 16:16:30 INFO src\box_rc_test.rs:216 - thread message
+2025-09-19 16:16:30 INFO src\box_rc_test.rs:216 - other message
+2025-09-19 16:16:59 INFO src\box_rc_test.rs:210 - Logger is being created...
+2025-09-19 16:16:59 INFO src\box_rc_test.rs:216 - some message
+2025-09-19 16:16:59 INFO src\box_rc_test.rs:216 - thread message
+2025-09-19 16:16:59 INFO src\box_rc_test.rs:216 - other message
+2025-09-19 16:17:03 INFO src\box_rc_test.rs:210 - Logger is being created...
+2025-09-19 16:17:03 INFO src\box_rc_test.rs:216 - some message
+2025-09-19 16:17:03 INFO src\box_rc_test.rs:216 - thread message
+2025-09-19 16:17:03 INFO src\box_rc_test.rs:216 - other message
+2025-09-19 16:17:06 INFO src\box_rc_test.rs:210 - Logger is being created...
+2025-09-19 16:17:06 INFO src\box_rc_test.rs:216 - some message
+2025-09-19 16:17:06 INFO src\box_rc_test.rs:216 - thread message
+2025-09-19 16:17:06 INFO src\box_rc_test.rs:216 - other message
+2025-09-19 16:24:13 INFO src\box_rc_test.rs:210 - Logger is being created...
+2025-09-19 16:24:13 INFO src\box_rc_test.rs:224 - some message
+2025-09-19 16:24:13 INFO src\box_rc_test.rs:224 - thread message
+2025-09-19 16:24:13 INFO src\box_rc_test.rs:224 - other message
+2025-09-19 16:24:25 INFO src\box_rc_test.rs:210 - Logger is being created...
+2025-09-19 16:24:25 INFO src\box_rc_test.rs:224 - some message
+2025-09-19 16:24:25 INFO src\box_rc_test.rs:224 - thread message
+2025-09-19 16:24:25 INFO src\box_rc_test.rs:224 - other message
