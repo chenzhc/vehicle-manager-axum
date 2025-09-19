@@ -237,6 +237,26 @@ mod tests {
     use super::*;
 
     #[test]
+    fn it_result_test01() {
+        crate::init();
+        let s1 = Some("some1");
+        let s2 = Some("some2");
+        let n: Option<&str> = None;
+
+        let o1: Result<&'static str, &str> = Ok("ok1");
+        let o2: Result<&str, &str> = Ok("ok2");
+        let e1: Result<&str, &str> = Err("error1");
+        let e2: Result<&str, &str> = Err("error2");
+
+        info!("{:?}", s1.or(s2));
+        info!("{:?}", s1.or(n));
+        info!("{:?}", n.or(s1));
+        info!("{:?}", n.or(n));
+
+
+    }
+
+    #[test]
     fn it_lazylock_test01() {
         crate::init();
         // 子线程中调用
