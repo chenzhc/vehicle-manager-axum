@@ -20,6 +20,12 @@ pub struct Vehicle {
     id: Option<String>,
 }
 
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
+pub struct Customer {
+    first_name: String,
+    last_name: String,
+}
+
 #[debug_handler]
 pub async fn vehicle_get() -> Json<Vehicle> {
     info!("Caller retrieved a vehicle from auxm");
@@ -42,7 +48,11 @@ pub async fn vehicle_get() -> Json<Vehicle> {
 // }
 
 #[debug_handler]
-pub async fn vehicle_post(Query(mut v): Query<Vehicle>) -> Json<Vehicle> {
+pub async fn vehicle_post(
+    Query(mut v): Query<Vehicle>,
+    Query(mut c): Query<Customer>
+) -> Json<Vehicle> {
+    info!("Customer: first name: {}, last name: {}", c.first_name, c.last_name);
     info!("Manufacturer: {}, model: {}, year: {}", v.manufacturer, v.model, v.year);
     v.id = Some(Uuid::new_v4().to_string());
     return Json::from(v);
