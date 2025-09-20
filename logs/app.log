@@ -7830,3 +7830,28 @@ test,test2
 2025-09-19 16:47:59 INFO src\box_rc_test.rs:252 - Some("some1")
 2025-09-19 16:47:59 INFO src\box_rc_test.rs:253 - Some("some1")
 2025-09-19 16:47:59 INFO src\box_rc_test.rs:254 - None
+2025-09-20 15:09:00 INFO src/main.rs:42 - Starting server on 0.0.0.0:5000
+2025-09-20 15:09:07 INFO src/main.rs:42 - Starting server on 0.0.0.0:5000
+2025-09-20 15:09:13 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:22 - Caller retrieved a vehicle from auxm
+2025-09-20 15:26:13 INFO src/main.rs:42 - Starting server on 0.0.0.0:5000
+2025-09-20 15:28:43 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: tewst, model: model1, year: 2025
+2025-09-20 15:30:52 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:30:54 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:30:54 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:30:54 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:30:55 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:30:55 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:30:55 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:30:58 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:30:58 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:36 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:18 INFO src/main.rs:42 - Starting server on 0.0.0.0:5000
+2025-09-20 15:52:23 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:25 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:25 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:26 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:26 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:26 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:26 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:27 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:27 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-20 15:52:27 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:46 - Manufacturer: Tesla, model: Model Y, year: 2025

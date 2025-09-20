@@ -10,6 +10,8 @@ use tracing::Subscriber;
 
 pub mod box_rc_test;
 
+pub mod vehicle;
+
 // init log config
 pub fn init() {
     dotenv().ok();

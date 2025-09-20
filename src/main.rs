@@ -22,6 +22,8 @@ use tracing_subscriber::{
     filter::filter_fn, fmt, layer::Filter, prelude::*, registry::LookupSpan, EnvFilter, Registry
 };
 
+use vehicle_manager_axum::vehicle;
+
 #[tokio::main]
 async fn main() {
     vehicle_manager_axum::init();
@@ -30,8 +32,8 @@ async fn main() {
     let app = Router::new()
         .route("/", get(|| async { "Hello, world!"}))
         .route("/vehicle", 
-            get(vehicle_get)
-            .post(vehicle_post)
+            get(vehicle::vehicle_get)
+            .post(vehicle::vehicle_post)
         );
         // .layer(TraceLayer::new_for_http());
 
@@ -44,28 +46,4 @@ async fn main() {
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
     
-}
-
-#[derive(Debug, serde::Deserialize, serde::Serialize)]
-struct Vehicle {
-    manufacturer: String,
-    model: String,
-    year: u32,
-    id: String,
-}
-
-async fn vehicle_get() -> Json<Vehicle> {
-    info!("Caller retrieved a vehicle from auxm");
-    Json::from(
-        Vehicle {
-            manufacturer: "Dodge".to_string(),
-            model: "RAM 1500".to_string(),
-            year: 2021,
-            id: uuid::Uuid::new_v4().to_string(),
-        }
-    )
-}
-
-async fn vehicle_post() {
-
 }
