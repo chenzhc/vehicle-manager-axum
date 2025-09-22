@@ -7880,3 +7880,82 @@ test,test2
 2025-09-22 10:30:44 INFO tests\tests_p_simple.rs:8 - test
 2025-09-22 10:30:55 INFO tests\tests_p_simple.rs:8 - test22
 2025-09-22 10:31:03 INFO tests\tests_p_simple.rs:8 - test2233
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:10 - test2233
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:20 - Hi nubmer 1 from the main thread!
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:14 - hi number 1 from the spawned thread!
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:20 - Hi nubmer 2 from the main thread!
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:14 - hi number 2 from the spawned thread!
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:20 - Hi nubmer 3 from the main thread!
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:14 - hi number 3 from the spawned thread!
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:20 - Hi nubmer 4 from the main thread!
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:14 - hi number 4 from the spawned thread!
+2025-09-22 11:00:20 INFO tests\tests_p_simple.rs:14 - hi number 5 from the spawned thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:10 - test2233
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:20 - Hi nubmer 1 from the main thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:14 - hi number 1 from the spawned thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:20 - Hi nubmer 2 from the main thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:14 - hi number 2 from the spawned thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:20 - Hi nubmer 3 from the main thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:14 - hi number 3 from the spawned thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:20 - Hi nubmer 4 from the main thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:14 - hi number 4 from the spawned thread!
+2025-09-22 11:00:43 INFO tests\tests_p_simple.rs:14 - hi number 5 from the spawned thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:10 - test2233
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:20 - Hi nubmer 1 from the main thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:14 - hi number 1 from the spawned thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:20 - Hi nubmer 2 from the main thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:14 - hi number 2 from the spawned thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:14 - hi number 3 from the spawned thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:20 - Hi nubmer 3 from the main thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:20 - Hi nubmer 4 from the main thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:14 - hi number 4 from the spawned thread!
+2025-09-22 11:00:52 INFO tests\tests_p_simple.rs:14 - hi number 5 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:10 - test2233
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:20 - Hi nubmer 1 from the main thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 1 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:20 - Hi nubmer 2 from the main thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 2 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:20 - Hi nubmer 3 from the main thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 3 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:20 - Hi nubmer 4 from the main thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 4 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 5 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 6 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 7 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 8 from the spawned thread!
+2025-09-22 11:03:58 INFO tests\tests_p_simple.rs:14 - hi number 9 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:10 - test2233
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 1 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 2 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 3 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 4 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 5 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 6 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 7 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 8 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:14 - hi number 9 from the spawned thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:22 - Hi nubmer 1 from the main thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:22 - Hi nubmer 2 from the main thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:22 - Hi nubmer 3 from the main thread!
+2025-09-22 11:04:38 INFO tests\tests_p_simple.rs:22 - Hi nubmer 4 from the main thread!
+2025-09-22 11:06:36 INFO tests\tests_p_simple.rs:36 - Here's a vector: [1, 2, 3]
+2025-09-22 11:11:52 INFO tests\tests_p_simple.rs:36 - Here's a vector: [1, 2, 3]
+2025-09-22 11:14:07 INFO tests\tests_p_simple.rs:49 - Got: hi
+2025-09-22 11:17:33 INFO tests\tests_p_simple.rs:71 - Got: hi
+2025-09-22 11:17:33 INFO tests\tests_p_simple.rs:71 - Got: from
+2025-09-22 11:17:33 INFO tests\tests_p_simple.rs:71 - Got: the
+2025-09-22 11:17:33 INFO tests\tests_p_simple.rs:71 - Got: thread
+2025-09-22 11:23:51 INFO tests\tests_p_simple.rs:111 - Got: 1: hi
+2025-09-22 11:23:51 INFO tests\tests_p_simple.rs:111 - Got: hi
+2025-09-22 11:23:51 INFO tests\tests_p_simple.rs:111 - Got: from
+2025-09-22 11:23:51 INFO tests\tests_p_simple.rs:111 - Got: 1: from
+2025-09-22 11:23:51 INFO tests\tests_p_simple.rs:111 - Got: 1: the
+2025-09-22 11:23:51 INFO tests\tests_p_simple.rs:111 - Got: the
+2025-09-22 11:23:51 INFO tests\tests_p_simple.rs:111 - Got: 1: thread
+2025-09-22 11:23:51 INFO tests\tests_p_simple.rs:111 - Got: thread
+2025-09-22 11:28:03 INFO tests\tests_p_simple.rs:123 - m = Mutex { data: 6, poisoned: false, .. }
+2025-09-22 11:31:19 INFO tests\tests_p_simple.rs:129 - Test
+2025-09-22 11:34:14 INFO tests\tests_p_simple.rs:129 - Test
+2025-09-22 11:34:14 INFO tests\tests_p_simple.rs:147 - Result: 10
+2025-09-22 11:55:30 INFO tests\tests_p_simple.rs:158 - Result1: "example"
+2025-09-22 11:55:39 INFO tests\tests_p_simple.rs:156 - Result1: "example"
