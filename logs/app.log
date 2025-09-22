@@ -7858,3 +7858,17 @@ test,test2
 2025-09-20 16:58:30 INFO src/main.rs:42 - Starting server on 0.0.0.0:5000
 2025-09-20 16:59:32 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:55 - Customer: first name: test, last name: test3
 2025-09-20 16:59:32 INFO /data2/rust_src/vehicle-manager-axum/src/vehicle.rs:56 - Manufacturer: Tesla, model: Model Y, year: 2025
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:976 - 多线程漫游者
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:985 - asdf, qwer
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:991 - test
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:995 - test
+2025-09-22 10:00:21 INFO src\box_rc_test.rs:1004 - 40

@@ -252,6 +252,7 @@ mod tests {
         info!("{:?}", s1.or(n));
         info!("{:?}", n.or(s1));
         info!("{:?}", n.or(n));
+        
 
 
     }
