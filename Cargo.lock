@@ -868,6 +868,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "hello_macro_derive"
+version = "0.1.0"
+dependencies = [
+ "log",
+ "quote",
+ "syn 2.0.106",
+]
+
+[[package]]
 name = "hermit-abi"
 version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2261,6 +2270,7 @@ dependencies = [
  "dotenv",
  "dotenvy",
  "futures",
+ "hello_macro_derive",
  "inquire",
  "lazy_static",
  "log",

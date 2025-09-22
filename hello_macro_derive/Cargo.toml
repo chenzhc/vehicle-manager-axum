@@ -1,0 +1,12 @@
+[package]
+name = "hello_macro_derive"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+quote = "1.0.40"
+syn = "2.0.106"
+log = "0.4"
+
+[lib]
+proc-macro = true
