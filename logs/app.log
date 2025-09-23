@@ -44638,3 +44638,158 @@ test,test2
 2025-09-22 16:16:34 INFO tests\tests_p_simple.rs:297 - [4, 5, 6]
 2025-09-22 16:21:21 INFO tests\tests_p_simple.rs:304 - Absolute value of -3 according to C: 3
 2025-09-22 16:49:52 INFO tests\tests_p_simple.rs:312 - [1, 2, 3]
+2025-09-23 09:15:01 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:142 - hello, world!
+2025-09-23 09:15:06 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:142 - hello, world!
+2025-09-23 09:18:05 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:147 - hello, kitty!
+2025-09-23 09:18:05 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:143 - hello, world!
+2025-09-23 09:23:07 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:163 - This is a song author: test, name: juhuaTai, sing.. test...
+2025-09-23 09:23:07 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:169 - dancing...
+2025-09-23 09:25:03 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:163 - This is a song author: test, name: juhuaTai, sing.. test...
+2025-09-23 09:25:03 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:169 - dancing...
+2025-09-23 09:56:17 INFO tests\tests_p_simple.rs:362 - a: test1, btest1
+2025-09-23 09:56:17 INFO tests\tests_p_simple.rs:363 - a: test2, btest2
+2025-09-23 09:57:02 INFO tests\tests_p_simple.rs:362 - a: test1, btest1
+2025-09-23 09:57:02 INFO tests\tests_p_simple.rs:364 - a: test1, btest2
+2025-09-23 09:58:39 INFO tests\tests_p_simple.rs:362 - a: test1, btest1
+2025-09-23 09:58:39 INFO tests\tests_p_simple.rs:365 - a: test1, bI've totolly changed now!
+2025-09-23 09:59:14 INFO tests\tests_p_simple.rs:362 - a: test1, b: test1
+2025-09-23 09:59:14 INFO tests\tests_p_simple.rs:365 - a: test1, b: I've totolly changed now!
+2025-09-23 10:08:25 INFO tests\tests_p_simple.rs:369 - a: test1, b: test1
+2025-09-23 10:08:25 INFO tests\tests_p_simple.rs:372 - a: test2, b: test2
+2025-09-23 10:24:49 INFO tests\tests_p_simple.rs:381 - a: test1, b: test1
+2025-09-23 10:24:49 INFO tests\tests_p_simple.rs:382 - a: test2, b: test2
+2025-09-23 10:35:55 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:262 - foo
+2025-09-23 10:36:22 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:262 - foo
+2025-09-23 10:36:45 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:262 - foo
+2025-09-23 10:50:33 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:262 - foo
+2025-09-23 11:35:36 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:280 - sleep...5
+2025-09-23 11:35:41 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:280 - sleep...5
+2025-09-23 11:35:46 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:280 - sleep...5
+2025-09-23 12:00:03 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 12:00:07 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 12:00:13 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 12:00:17 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 12:00:18 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 12:00:20 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 12:00:23 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 12:00:28 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 12:00:48 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\flexible_test.rs:304 - sleep...5
+2025-09-23 13:58:45 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:58:46 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:58:46 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:58:46 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:58:47 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:58:47 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:58:48 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:59:50 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:59:50 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 13:59:50 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:03:14 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:03:14 INFO src\flexible_test.rs:324 - Request: ["GET / HTTP/1.1", "user-agent: vscode-restclient", "accept-encoding: gzip, deflate", "Host: localhost:7878", "Connection: close"]
+2025-09-23 14:03:17 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:03:17 INFO src\flexible_test.rs:324 - Request: ["GET / HTTP/1.1", "user-agent: vscode-restclient", "accept-encoding: gzip, deflate", "Host: localhost:7878", "Connection: close"]
+2025-09-23 14:07:51 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:07:53 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:07:53 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:07:54 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:07:54 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:07:54 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:08:00 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:08:00 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:08:00 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:14:56 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:14:57 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:14:57 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:12 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:13 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:13 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:14 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:14 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:14 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:14 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:15 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:15 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:15 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:16 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:16 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:16 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:17 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:17 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:17 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:17 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:18 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:19 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:20 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:15:20 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:17:04 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:17:07 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:17:08 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:17:09 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:17:09 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:17:09 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:17:11 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:22:11 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:22:12 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:22:12 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:22:12 INFO tests\tests_p_simple.rs:429 - Connection established!
+2025-09-23 14:22:40 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:41 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:42 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:42 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:42 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:43 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:43 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:43 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:43 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:44 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:22:44 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:26:16 INFO tests\tests_p_simple.rs:429 - Connection established!222
+2025-09-23 14:59:23 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:47 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:47 INFO src\flexible_test.rs:397 - Worker 0 got a job; executing...
+2025-09-23 15:02:48 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:48 INFO src\flexible_test.rs:397 - Worker 1 got a job; executing...
+2025-09-23 15:02:48 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:48 INFO src\flexible_test.rs:397 - Worker 2 got a job; executing...
+2025-09-23 15:02:49 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:49 INFO src\flexible_test.rs:397 - Worker 3 got a job; executing...
+2025-09-23 15:02:51 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:51 INFO src\flexible_test.rs:397 - Worker 0 got a job; executing...
+2025-09-23 15:02:51 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:51 INFO src\flexible_test.rs:397 - Worker 1 got a job; executing...
+2025-09-23 15:02:52 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:52 INFO src\flexible_test.rs:397 - Worker 2 got a job; executing...
+2025-09-23 15:02:52 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:52 INFO src\flexible_test.rs:397 - Worker 3 got a job; executing...
+2025-09-23 15:02:53 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:53 INFO src\flexible_test.rs:397 - Worker 0 got a job; executing...
+2025-09-23 15:02:53 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:53 INFO src\flexible_test.rs:397 - Worker 1 got a job; executing...
+2025-09-23 15:02:55 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:55 INFO src\flexible_test.rs:397 - Worker 2 got a job; executing...
+2025-09-23 15:02:55 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:55 INFO src\flexible_test.rs:397 - Worker 3 got a job; executing...
+2025-09-23 15:02:56 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:56 INFO src\flexible_test.rs:397 - Worker 0 got a job; executing...
+2025-09-23 15:02:56 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:56 INFO src\flexible_test.rs:397 - Worker 1 got a job; executing...
+2025-09-23 15:02:58 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:59 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:02:59 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:03:00 INFO src\flexible_test.rs:397 - Worker 2 got a job; executing...
+2025-09-23 15:03:00 INFO src\flexible_test.rs:397 - Worker 2 got a job; executing...
+2025-09-23 15:03:00 INFO src\flexible_test.rs:397 - Worker 2 got a job; executing...
+2025-09-23 15:03:01 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:03:01 INFO src\flexible_test.rs:397 - Worker 2 got a job; executing...
+2025-09-23 15:03:07 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:03:07 INFO src\flexible_test.rs:397 - Worker 3 got a job; executing...
+2025-09-23 15:03:09 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:03:09 INFO src\flexible_test.rs:397 - Worker 0 got a job; executing...
+2025-09-23 15:03:10 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:03:10 INFO src\flexible_test.rs:397 - Worker 1 got a job; executing...
+2025-09-23 15:03:10 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:03:10 INFO src\flexible_test.rs:397 - Worker 2 got a job; executing...
+2025-09-23 15:03:16 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:03:16 INFO src\flexible_test.rs:397 - Worker 0 got a job; executing...
+2025-09-23 15:03:18 INFO tests\tests_p_simple.rs:430 - Connection established!222
+2025-09-23 15:03:18 INFO src\flexible_test.rs:397 - Worker 1 got a job; executing...

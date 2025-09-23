@@ -5,9 +5,10 @@
 )]
 #![allow(dead_code)]
 #![allow(unused_variables)]
-use std::{sync::{mpsc, Arc, Mutex}, thread, time::{Duration, Instant}};
+use std::{net::TcpListener, pin::Pin, sync::{mpsc, Arc, Mutex}, thread, time::{Duration, Instant}};
+use futures::{executor::block_on, join, StreamExt};
 use log::info;
-use vehicle_manager_axum::{flexible_test::{self, get_memory_location, get_str_at_location, read_from_file1, read_from_file1_async, read_from_file2, read_from_file2_async, split_at_mut, AsyncTimer, HelloMacro, ReadFileFutre, Sunface, Sunfei}, init, vecust};
+use vehicle_manager_axum::{flexible_test::{self, async_main, blocks, dance, do_something, get_memory_location, get_str_at_location, handle_connection, handle_connection3, handle_connection_async, hello_world, learn_song, read_from_file1, read_from_file1_async, read_from_file2, read_from_file2_async, sing_song, split_at_mut, AsyncTimer, HelloMacro, ReadFileFutre, Sunface, Sunfei, TestBox, TestSelRef, ThreadPool}, init, vecust};
 
 #[test]
 fn itest_01() {
@@ -318,4 +319,117 @@ fn it_hello_macro_test() {
     Sunfei::hello_macro();
     Sunface::hello_macro();
 
+}
+
+#[test]
+fn it_do_something_test() {
+    init();
+    let _ = do_something();
+    
+}
+
+#[test]
+fn it_hello_world_test() {
+    init();
+    let future = hello_world();
+    block_on(future);
+}
+
+#[test]
+fn it_sing_song_test() {
+    init();
+    let song = block_on(learn_song());
+    block_on(sing_song(song));
+    block_on(dance());   
+}
+
+#[test]
+fn it_async_main_test() {
+    init();
+    block_on(async_main());
+
+}
+
+
+#[test]
+fn it_test_sel_ref_test() {
+    init();
+    let mut test1 = TestSelRef::new("test1");
+    let mut test1 = unsafe {
+        Pin::new_unchecked(&mut test1)
+    };
+    TestSelRef::init(test1.as_mut());
+
+    let mut test2 = TestSelRef::new("test2");
+    let mut test2 = unsafe {
+        Pin::new_unchecked(&mut test2)
+    };
+    TestSelRef::init(test2.as_mut());
+
+    info!("a: {}, b: {}", TestSelRef::a(test1.as_ref()), TestSelRef::b(test1.as_ref()));
+    // std::mem::swap(test1.get_mut(), test2.get_mut());
+    // test1.a = "I've totolly changed now!".to_string();
+    info!("a: {}, b: {}", TestSelRef::a(test2.as_ref()), TestSelRef::b(test2.as_ref()));
+
+}
+
+#[test]
+fn it_test_box_test() {
+    init();
+    let test1  = TestBox::new("test1");
+    let test2 = TestBox::new("test2");
+    info!("a: {}, b: {}", test1.as_ref().a(), test1.as_ref().b());
+    info!("a: {}, b: {}", test2.as_ref().a(), test2.as_ref().b());
+
+}
+
+#[tokio::test]
+async fn it_blocks_test() {
+    init();
+    let b = blocks();
+
+    // block_on(b);
+    join!(b);
+    
+}
+
+#[tokio::test]
+async fn it_web_test() {
+    init();
+    let listener = TcpListener::bind("0.0.0.0:7878").unwrap();
+
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+        handle_connection(stream).await;
+    }
+}
+
+#[tokio::test]
+async fn it_web_test02() {
+    init();
+    let listener = async_std::net::TcpListener::bind("0.0.0.0:7878").await.unwrap();
+    listener.incoming()
+        .for_each_concurrent(None, |tcpstream| async move {
+            let tcpstream = tcpstream.unwrap();
+            handle_connection_async(tcpstream).await;
+        })
+        .await;
+}
+
+
+#[tokio::test]
+async fn it_web_test03() {
+    init();
+
+    let listener = TcpListener::bind("0.0.0.0:7878").unwrap();
+    let pool = ThreadPool::new(4);
+
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+
+        info!("Connection established!222");
+        pool.execute(|| {
+            handle_connection3(stream);
+        });
+    }
 }

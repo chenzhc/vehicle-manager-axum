@@ -35,6 +35,18 @@ Content-Type: application/json
 }
 
 
+######
+# web 7878
+GET http://localhost:7878/ HTTP/1.1
 
+
+
+######
+# web 7878
+GET http://localhost:7878/err.html HTTP/1.1
+
+######
+# web 7878
+GET http://localhost:7878/sleep HTTP/1.1
 
 
