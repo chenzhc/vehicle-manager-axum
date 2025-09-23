@@ -41,7 +41,6 @@ async fn it_say_to_world_test() {
 #[tokio::test]
 async fn it_redis_server_test() {
     init();
-    
 
     let listener = TcpListener::bind("0.0.0.0:6378").await.unwrap();
     info!("Listening");
@@ -108,3 +107,4 @@ async fn it_tokio_channel_test() {
         info!("Got = {}", message);
     }
 }
+

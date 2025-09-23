@@ -44809,3 +44809,7 @@ test,test2
 2025-09-23 16:54:22 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\redis_test.rs:21 - Got: Array([Bulk(b"get"), Bulk(b"hello")])
 2025-09-23 17:47:02 INFO tests\test_mini_redis.rs:108 - Got = sending from first handle
 2025-09-23 17:47:02 INFO tests\test_mini_redis.rs:108 - Got = sending from second handle
+2025-09-23 17:59:41 INFO tests\test_mini_redis.rs:46 - Listening
+2025-09-23 17:59:56 INFO tests\test_mini_redis.rs:54 - Accepted
+2025-09-23 17:59:56 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\redis_test.rs:40 - Got: Array([Bulk(b"get"), Bulk(b"hello")])
+2025-09-23 17:59:56 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\redis_test.rs:40 - Got: Array([Bulk(b"set"), Bulk(b"foo"), Bulk(b"bar")])
