@@ -14,6 +14,8 @@ pub mod vehicle;
 
 pub mod flexible_test;
 
+pub mod redis_test;
+
 // init log config
 pub fn init() {
     dotenv().ok();

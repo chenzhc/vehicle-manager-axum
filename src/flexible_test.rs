@@ -412,3 +412,9 @@ impl Worker {
 }
 
 // struct Job;
+
+
+pub async fn say_to_world() -> String {
+    return String::from("world");
+}
+
