@@ -38,3 +38,5 @@ crossbeam-channel = "0.5.15"
 crossbeam-utils = "0.8.21"
 crossbeam-queue = "0.3.12"
 crossbeam-epoch = "0.9.18"
+sea-orm = { version = "1.1.16", features = ["with-json","with-uuid","debug-print","mock","with-chrono","runtime-tokio-native-tls","sqlx-mysql","sqlx-postgres","sqlx-sqlite", "macros"] }
+sea-orm-migration = { version = "1.1.16", features = ["with-uuid","with-time","with-chrono","with-json","sqlx-mysql","runtime-tokio","sqlx-sqlite","sqlx-postgres","runtime-tokio-native-tls"] }

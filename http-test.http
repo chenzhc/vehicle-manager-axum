@@ -50,3 +50,8 @@ GET http://localhost:7878/err.html HTTP/1.1
 GET http://localhost:7878/sleep HTTP/1.1
 
 
+######
+# web 3000
+GET http://localhost:3000/ HTTP/1.1
+
+

@@ -44853,3 +44853,7 @@ test,test2
 2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:168 - Received: 4
 2025-09-24 11:23:27 INFO tests\test_mini_redis.rs:181 - Popped: 1
 2025-09-24 11:23:27 INFO tests\test_mini_redis.rs:181 - Popped: 2
+2025-09-24 17:06:04 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\sqlx-core-0.8.6\src\logger.rs:143 - summary="PRAGMA foreign_keys = ON; …" db.statement="\n\nPRAGMA foreign_keys = ON; \n" rows_affected=0 rows_returned=0 elapsed=169.5µs elapsed_secs=0.0001695
+2025-09-24 17:06:04 INFO tests\test_mini_redis.rs:267 - Successfully connected to the databases!
+2025-09-24 17:26:50 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\sqlx-core-0.8.6\src\logger.rs:143 - summary="SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …" db.statement="\n\nSET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;\n" rows_affected=0 rows_returned=0 elapsed=413.6µs elapsed_secs=0.0004136
+2025-09-24 17:26:50 INFO tests\test_mini_redis.rs:275 - connect to db...

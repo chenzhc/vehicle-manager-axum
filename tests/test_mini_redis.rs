@@ -5,13 +5,18 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use std::{collections::HashMap, rc::Rc, sync::{mpsc, Arc, Mutex}, thread};
+use std::{collections::HashMap, env, rc::Rc, sync::{mpsc, Arc, Mutex}, thread};
 
 use async_std::task::yield_now;
+use axum::{response::Html, routing::get, Router};
 use bytes::Bytes;
 use log::info;
 use mini_redis::{client, Result};
+use sea_orm::{ConnectionTrait, Database, DbBackend, DbConn, Statement};
 use tokio::{io::{self, AsyncReadExt, AsyncWriteExt}, net::{TcpListener, TcpSocket, TcpStream}, task};
+use tower_http::trace::TraceLayer;
+use tracing::Level;
+use tracing_subscriber::FmtSubscriber;
 use vehicle_manager_axum::{flexible_test::say_to_world, init, redis_test::process};
 
 #[tokio::test]
@@ -188,6 +193,112 @@ fn it_epoch_test01() {
     init();
     let collector = crossbeam_epoch::Collector::new();
     let handle = collector.register();
-    let atomic = crossbeam_epoch::Atomic::null();
  
+}
+
+async fn handler() -> Html<&'static str> {
+    Html("<h1>Hello, world!</h>")
+}
+
+pub struct MyState {
+
+}
+
+#[tokio::test]
+async fn it_web_test01() {
+    let subscriber = FmtSubscriber::builder()
+        .with_max_level(Level::INFO)
+        .finish();
+    let _ = tracing::subscriber::set_global_default(subscriber)
+        .expect("error setting global subscriber for tracing");
+
+    let app = Router::new()
+        .route("/", get(handler))
+        .layer(TraceLayer::new_for_http());
+
+    let addr = "0.0.0.0:3000";
+
+    let listener = tokio::net::TcpListener::bind(addr)
+        .await
+        .unwrap();
+    tracing::info!(addr);
+    axum::serve(listener, app)
+        .await
+        .unwrap();
+
+}
+
+#[tokio::test]
+async fn it_echo_test01() -> anyhow::Result<()> {
+    let listener = TcpListener::bind("0.0.0.0:8000").await?;
+
+    loop {
+        let (mut socket, _) = listener.accept().await?;
+
+        tokio::spawn(async move {
+            let mut buf = [0; 1024];
+
+            loop {
+                let n = match socket.read(&mut buf).await {
+                    Ok(n) if n == 0 => return,
+                    Ok(n) => n,
+                    Err(e) => {
+                        info!("failed to read from socket; err = {:?}", e);
+                        return;
+                    }
+                };
+
+                if let Err(e) = socket.write_all(&buf[0..n]).await {
+                    info!("failed to write to socket; err = {:?}", e);
+                    return;
+                }
+            }
+        });
+    }
+}
+
+#[tokio::test]
+async fn it_sea_orm_test01() -> anyhow::Result<()> {
+    init();
+    let db_url = "sqlite::memory:";
+
+    let db:DbConn = Database::connect(db_url).await?;
+
+    info!("Successfully connected to the databases!");
+
+    Ok(())
+}
+
+async fn conn_db() -> anyhow::Result<()> {
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    let db_name = env::var("MYSQL_DATABASE").expect("MYSQL_DATABASE must be set");
+    let db = Database::connect(database_url.clone()).await?;
+    info!("connect to db...");
+
+    // let db = &match db.get_database_backend() {
+    //     DbBackend::MySql => {
+    //         db.execute(Statement::from_string(
+    //             db.get_database_backend(),
+    //             format!("CREATE DATABASE IF NOT EXISTS `{}`;", ""),
+    //         ))
+    //         .await?;
+
+    //         let url = format!("{}/{}", "", "");
+    //         Database::connect(&url).await?
+    //     },
+    //     DbBackend::Postgres => {
+    //         Database::connect(database_url).await? 
+    //     }
+    //     DbBackend::Sqlite => db,
+    // };
+
+    Ok(())
+}
+
+#[tokio::test]
+async fn it_conn_db_test01() -> anyhow::Result<()> {
+    init();
+    let _ = conn_db().await?;
+
+    Ok(())
 }
