@@ -13,7 +13,7 @@ use bytes::Bytes;
 use log::info;
 use mini_redis::{client, Result};
 use sea_orm::{ConnectionTrait, Database, DbBackend, DbConn, Statement};
-use tokio::{io::{self, AsyncReadExt, AsyncWriteExt}, net::{TcpListener, TcpSocket, TcpStream}, task};
+use tokio::{io::{self, AsyncReadExt, AsyncWriteExt}, net::{TcpListener, TcpSocket, TcpStream}, sync::Semaphore, task};
 use tower_http::trace::TraceLayer;
 use tracing::Level;
 use tracing_subscriber::FmtSubscriber;
@@ -301,4 +301,30 @@ async fn it_conn_db_test01() -> anyhow::Result<()> {
     let _ = conn_db().await?;
 
     Ok(())
+}
+
+
+#[tokio::test]
+async fn it_echo_test04() -> anyhow::Result<()> {
+    init();
+    let listener = TcpListener::bind("0.0.0.0:8000").await?;
+    let semaphore = Arc::new(Semaphore::new(5000));
+
+    loop {
+        let permit = semaphore.clone().acquire_owned().await?;
+        let (mut socket, _) = listener.accept().await?;
+        tokio::spawn(async move {
+            let _permit = permit;
+            let mut buf = vec![0; 1024];
+            while let Ok(n) = socket.read(&mut buf).await {
+                if n == 0 {
+                    break;
+                }
+                if socket.write_all(&buf[..n]).await.is_err() {
+                    break;
+                }
+            }
+        });
+
+    }
 }
