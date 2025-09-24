@@ -11,7 +11,7 @@ use std::{collections::HashMap, hash::Hash, sync::{Arc, Mutex}};
 use bytes::Bytes;
 use log::info;
 use mini_redis::{Connection, Frame};
-use tokio::net::TcpStream;
+use tokio::{net::TcpStream, sync::oneshot};
 
 type Db = Arc<Mutex<HashMap<String, Bytes>>>;
 
@@ -64,8 +64,10 @@ pub async fn process(socket: TcpStream, db: Db) {
 }
 
 
+type Responder<T> = oneshot::Sender<mini_redis::Result<T>>;
+
 #[derive(Debug)]
-enum Command {
+pub enum Command {
     Get {
         key: String,
     },

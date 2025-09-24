@@ -44813,3 +44813,43 @@ test,test2
 2025-09-23 17:59:56 INFO tests\test_mini_redis.rs:54 - Accepted
 2025-09-23 17:59:56 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\redis_test.rs:40 - Got: Array([Bulk(b"get"), Bulk(b"hello")])
 2025-09-23 17:59:56 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\redis_test.rs:40 - Got: Array([Bulk(b"set"), Bulk(b"foo"), Bulk(b"bar")])
+2025-09-24 09:38:43 INFO src\main.rs:42 - Starting server on 0.0.0.0:5000
+2025-09-24 09:39:19 INFO tests\test_mini_redis.rs:46 - Listening
+2025-09-24 09:39:32 INFO tests\test_mini_redis.rs:54 - Accepted
+2025-09-24 09:39:32 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\redis_test.rs:40 - Got: Array([Bulk(b"get"), Bulk(b"hello")])
+2025-09-24 09:39:32 INFO C:\Users\user\Documents\node_src\vehicle-manager-axum\src\redis_test.rs:40 - Got: Array([Bulk(b"set"), Bulk(b"foo"), Bulk(b"bar")])
+2025-09-24 10:22:19 INFO tests\test_mini_redis.rs:134 - Got [72, 101, 108, 108, 111, 32, 102, 114, 111, 109, 32, 115, 101, 114, 118, 101, 114, 33]
+2025-09-24 11:10:10 INFO tests\test_mini_redis.rs:147 - Thread 0 is running
+2025-09-24 11:10:10 INFO tests\test_mini_redis.rs:147 - Thread 1 is running
+2025-09-24 11:10:10 INFO tests\test_mini_redis.rs:147 - Thread 2 is running
+2025-09-24 11:10:10 INFO tests\test_mini_redis.rs:147 - Thread 3 is running
+2025-09-24 11:10:10 INFO tests\test_mini_redis.rs:147 - Thread 4 is running
+2025-09-24 11:10:10 INFO tests\test_mini_redis.rs:151 - All threads have fnished.
+2025-09-24 11:16:14 INFO tests\test_mini_redis.rs:147 - Thread 0 is running
+2025-09-24 11:16:14 INFO tests\test_mini_redis.rs:147 - Thread 1 is running
+2025-09-24 11:16:14 INFO tests\test_mini_redis.rs:147 - Thread 2 is running
+2025-09-24 11:16:14 INFO tests\test_mini_redis.rs:147 - Thread 3 is running
+2025-09-24 11:16:14 INFO tests\test_mini_redis.rs:147 - Thread 4 is running
+2025-09-24 11:16:14 INFO tests\test_mini_redis.rs:151 - All threads have fnished.
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:163 - Sent: 0
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:168 - Received: 0
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:163 - Sent: 1
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:168 - Received: 1
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:163 - Sent: 2
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:168 - Received: 2
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:163 - Sent: 3
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:168 - Received: 3
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:163 - Sent: 4
+2025-09-24 11:20:16 INFO tests\test_mini_redis.rs:168 - Received: 4
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:168 - Received: 0
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:163 - Sent: 0
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:163 - Sent: 1
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:168 - Received: 1
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:163 - Sent: 2
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:168 - Received: 2
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:163 - Sent: 3
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:168 - Received: 3
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:163 - Sent: 4
+2025-09-24 11:20:21 INFO tests\test_mini_redis.rs:168 - Received: 4
+2025-09-24 11:23:27 INFO tests\test_mini_redis.rs:181 - Popped: 1
+2025-09-24 11:23:27 INFO tests\test_mini_redis.rs:181 - Popped: 2
