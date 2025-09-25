@@ -8,10 +8,11 @@
 use core::num;
 use std::{collections::HashMap, hash::Hash, sync::{Arc, Mutex}};
 
+use axum::extract::Path;
 use bytes::Bytes;
 use log::info;
 use mini_redis::{Connection, Frame};
-use tokio::{net::TcpStream, sync::oneshot};
+use tokio::{fs::File, net::TcpStream, sync::oneshot};
 
 type Db = Arc<Mutex<HashMap<String, Bytes>>>;
 
@@ -75,4 +76,18 @@ pub enum Command {
         key: String,
         val: Bytes,
     }
+}
+
+
+pub async fn serve_file(Path(id): Path<String>) -> Result<String, String> {
+    let mut file = File::open(format!("files/{}.txt", id))
+        .await
+        .map_err(|_| "File not found")?;
+    let mut contents = String::new();
+
+    tokio::io::AsyncReadExt::read_to_string(&mut file, &mut contents)
+        .await
+        .map_err(|_| "Read error")?;
+
+    Ok(contents)
 }

@@ -44857,3 +44857,32 @@ test,test2
 2025-09-24 17:06:04 INFO tests\test_mini_redis.rs:267 - Successfully connected to the databases!
 2025-09-24 17:26:50 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\sqlx-core-0.8.6\src\logger.rs:143 - summary="SET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES …" db.statement="\n\nSET sql_mode=(SELECT CONCAT(@@sql_mode, ',PIPES_AS_CONCAT,NO_ENGINE_SUBSTITUTION')),time_zone='+00:00',NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;\n" rows_affected=0 rows_returned=0 elapsed=413.6µs elapsed_secs=0.0004136
 2025-09-24 17:26:50 INFO tests\test_mini_redis.rs:275 - connect to db...
+2025-09-25 14:46:32 INFO tests\test_mini_redis.rs:41 - hello
+2025-09-25 14:46:32 INFO tests\test_mini_redis.rs:43 - world
+2025-09-25 15:22:48 INFO tests\test_libvips.rs:31 - id: 1, name: 12
+2025-09-25 15:29:04 INFO tests\test_libvips.rs:50 - id: 1, name: 12
+2025-09-25 15:37:18 INFO tests\test_libvips.rs:73 - rx1 completed first with Ok("one")
+2025-09-25 15:52:36 INFO tests\test_libvips.rs:87 - Got = 1
+2025-09-25 15:52:36 INFO tests\test_libvips.rs:87 - Got = 2
+2025-09-25 15:52:36 INFO tests\test_libvips.rs:87 - Got = 3
+2025-09-25 15:59:22 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:283 - subscribe; channels=["numbers"]
+2025-09-25 15:59:22 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"1"
+2025-09-25 15:59:22 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"two"
+2025-09-25 15:59:22 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"3"
+2025-09-25 15:59:22 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"four"
+2025-09-25 15:59:22 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"five"
+2025-09-25 15:59:22 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"6"
+2025-09-25 16:00:52 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:283 - subscribe; channels=["numbers"]
+2025-09-25 16:00:52 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"1"
+2025-09-25 16:00:52 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"two"
+2025-09-25 16:00:52 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"3"
+2025-09-25 16:00:52 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"four"
+2025-09-25 16:00:52 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"five"
+2025-09-25 16:00:52 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"6"
+2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:283 - subscribe; channels=["numbers"]
+2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"1"
+2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"two"
+2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"3"
+2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"four"
+2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"five"
+2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"6"

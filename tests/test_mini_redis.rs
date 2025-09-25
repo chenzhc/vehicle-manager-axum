@@ -5,19 +5,20 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use std::{collections::HashMap, env, rc::Rc, sync::{mpsc, Arc, Mutex}, thread};
-
-use async_std::task::yield_now;
+use std::{any, collections::HashMap, env, rc::Rc, sync::{mpsc, Arc, Mutex}, thread};
+use async_std::{io::WriteExt, task::yield_now};
 use axum::{response::Html, routing::get, Router};
 use bytes::Bytes;
 use log::info;
 use mini_redis::{client, Result};
 use sea_orm::{ConnectionTrait, Database, DbBackend, DbConn, Statement};
-use tokio::{io::{self, AsyncReadExt, AsyncWriteExt}, net::{TcpListener, TcpSocket, TcpStream}, sync::Semaphore, task};
+use smol::{net, Unblock};
+use tokio::{io::{self, AsyncReadExt, AsyncWriteExt}, net::{TcpListener, TcpSocket, TcpStream, UdpSocket}, sync::Semaphore, task};
 use tower_http::trace::TraceLayer;
 use tracing::Level;
 use tracing_subscriber::FmtSubscriber;
-use vehicle_manager_axum::{flexible_test::say_to_world, init, redis_test::process};
+use vehicle_manager_axum::{flexible_test::say_to_world, init, redis_test::{process, serve_file}};
+use tokio_stream::{self, StreamExt};
 
 #[tokio::test]
 async fn it_redis_client_test() -> Result<()> {
@@ -327,5 +328,52 @@ async fn it_echo_test04() -> anyhow::Result<()> {
         });
 
     }
+}
+
+// IO 密集型 HTTP 服务，处理文件上传/下载。
+#[tokio::test]
+async fn it_file_donwload_test() -> anyhow::Result<()> {
+    init();
+    let subscriber = FmtSubscriber::builder()
+        .with_max_level(Level::INFO)
+        .finish();
+    let _ = tracing::subscriber::set_global_default(subscriber)
+        .expect("error setting global subscriber for tracing");
+
+    let app = Router::new()
+        .route("/file/{id}", get(serve_file))
+        .layer(TraceLayer::new_for_http());
+
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+
+    axum::serve(listener, app).await.unwrap();
+    Ok(())
+}
+
+#[tokio::test]
+async fn it_udp_socket_test01() -> anyhow::Result<()> {
+    init();
+    let socket = UdpSocket::bind("0.0.0.0:8000").await.unwrap();
+    let mut buf = [0; 1024];
+
+    // let mut stream = tokio_stream::re(async move {
+
+    // });
+
+    Ok(())
+}
+
+#[test]
+fn it_smol_web_test01() -> anyhow::Result<()> {
+    init();
+    smol::block_on(async {
+        let mut stream = net::TcpStream::connect("news.163.com:80").await?;
+        let req = b"GET / HTTP/1.1\r\nHost: news.163.com\r\nConnection:close\r\rn\r\n";
+        stream.write_all(req).await?;
+
+        let mut stdout = Unblock::new(std::io::stdout());
+        smol::io::copy(&mut stream, &mut stdout).await?;
+        Ok(())
+    })
 }
 
