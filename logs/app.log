@@ -44953,3 +44953,20 @@ test,test2
 2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 1
 2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 4
 2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 6
+2025-09-25 17:54:01 INFO tests\test_libvips.rs:179 - 正态分布: -7.247869807877779
+2025-09-25 17:54:06 INFO tests\test_libvips.rs:179 - 正态分布: -3.7707335205565435
+2025-09-25 17:54:10 INFO tests\test_libvips.rs:179 - 正态分布: 7.213139230216885
+2025-09-25 17:54:36 INFO tests\test_libvips.rs:179 - 正态分布: 6.527571281940637
+2025-09-25 17:54:43 INFO tests\test_libvips.rs:179 - 正态分布: -4.088659425709137
+2025-09-25 17:54:46 INFO tests\test_libvips.rs:179 - 正态分布: -11.436582290331913
+2025-09-25 17:54:50 INFO tests\test_libvips.rs:179 - 正态分布: -5.292130214944786
+2025-09-25 17:54:53 INFO tests\test_libvips.rs:179 - 正态分布: 8.340874802587573
+2025-09-25 17:54:56 INFO tests\test_libvips.rs:179 - 正态分布: -4.782286093372276
+2025-09-25 17:54:59 INFO tests\test_libvips.rs:179 - 正态分布: -5.412556656319682
+2025-09-25 18:02:26 INFO tests\test_libvips.rs:179 - 正态分布: -18.96494733508022
+2025-09-25 18:02:26 INFO tests\test_libvips.rs:184 - 随机值元组: (-583595113, true, 0.8525721546004329)
+2025-09-25 18:02:26 INFO tests\test_libvips.rs:185 - 随机值结构体: Point { x: -1711672513, y: -1615091232 }
+2025-09-25 18:06:37 INFO tests\test_libvips.rs:209 - 随机密码: fQIfEvisxYFgvuPUjvgl3g23z1C5FK
+2025-09-25 18:06:41 INFO tests\test_libvips.rs:209 - 随机密码: cXdLsTsgvs0pERCa2ViAe9zvsvmYXa
+2025-09-25 18:06:44 INFO tests\test_libvips.rs:209 - 随机密码: NtrrGMKXAN5cdtLRjZrKIThjguajuX
+2025-09-25 18:06:46 INFO tests\test_libvips.rs:209 - 随机密码: t76Rapb7IKh3153UROq1vSYpWPP46v

@@ -10,7 +10,8 @@ use deadpool_postgres::{tokio_postgres::NoTls, Config, Manager, ManagerConfig, P
 use futures::channel::oneshot;
 use log::info;
 use mini_redis::client;
-use rand::{distr::{Distribution, Uniform}, Rng};
+use rand::{distr::{Distribution, SampleString, Uniform}, Rng};
+use rand_distr::{Alphanumeric, Normal, StandardUniform};
 use vehicle_manager_axum::{init};
 use tokio_stream::StreamExt;
 
@@ -166,4 +167,47 @@ fn it_rng_test02() {
             break;
         }
     }
+}
+
+#[test]
+fn it_rng_test03() {
+    init();
+    let mut rng = rand::rng();
+    // 正态分布
+    let normal = Normal::new(2.0,9.0).unwrap();
+    let v = normal.sample(&mut rng);
+    info!("正态分布: {}", v);
+
+    let rand_tuple = rng.random::<(i32, bool, f64)>();
+    let rand_point: Point = rng.random();
+
+    info!("随机值元组: {:?}", rand_tuple);
+    info!("随机值结构体: {:?}", rand_point);
+}
+
+#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Distribution<Point> for StandardUniform {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Point {
+        let (rand_x, rand_y) = rng.random();
+        Point {
+            x: rand_x,
+            y: rand_y,
+        }
+    }
+}
+
+// 从一组字母数字生成一个随机值
+#[test]
+fn it_rng_test04() {
+    init();
+    let rand_string: String = Alphanumeric.sample_string(&mut rand::rng(), 30);
+    
+    // 随机密码: t76Rapb7IKh3153UROq1vSYpWPP46v
+    info!("随机密码: {}", rand_string);
+
 }
