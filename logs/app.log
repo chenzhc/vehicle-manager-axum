@@ -44886,3 +44886,70 @@ test,test2
 2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"four"
 2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"five"
 2025-09-25 16:02:16 INFO C:\Users\user\.cargo\registry\src\rsproxy.cn-e3de039b2554c837\mini-redis-0.4.1\src\client.rs:259 - publish; channel="number" message=b"6"
+2025-09-25 17:42:15 INFO tests\test_libvips.rs:145 - u8 : 30
+2025-09-25 17:42:15 INFO tests\test_libvips.rs:146 - u16 : 49690
+2025-09-25 17:43:30 INFO tests\test_libvips.rs:145 - u8 : 35
+2025-09-25 17:43:30 INFO tests\test_libvips.rs:146 - u16 : 19875
+2025-09-25 17:43:30 INFO tests\test_libvips.rs:147 - u32: 2579096314
+2025-09-25 17:43:30 INFO tests\test_libvips.rs:148 - i32: -815463558
+2025-09-25 17:43:30 INFO tests\test_libvips.rs:149 - float: 0.7339714322157981
+2025-09-25 17:44:57 INFO tests\test_libvips.rs:145 - u8 : 239
+2025-09-25 17:44:57 INFO tests\test_libvips.rs:146 - u16 : 58709
+2025-09-25 17:44:57 INFO tests\test_libvips.rs:147 - u32: 3770090366
+2025-09-25 17:44:57 INFO tests\test_libvips.rs:148 - i32: -809248950
+2025-09-25 17:44:57 INFO tests\test_libvips.rs:149 - float: 0.7959350866142033
+2025-09-25 17:44:57 INFO tests\test_libvips.rs:151 - 1
+2025-09-25 17:44:57 INFO tests\test_libvips.rs:152 - 5.643081691585177
+2025-09-25 17:50:10 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:10 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:10 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:10 INFO tests\test_libvips.rs:164 - : 6
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:14 INFO tests\test_libvips.rs:164 - : 6
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:20 INFO tests\test_libvips.rs:164 - : 6
+2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 2
+2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 5
+2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 3
+2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 1
+2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 4
+2025-09-25 17:50:24 INFO tests\test_libvips.rs:164 - : 6

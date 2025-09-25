@@ -10,6 +10,7 @@ use deadpool_postgres::{tokio_postgres::NoTls, Config, Manager, ManagerConfig, P
 use futures::channel::oneshot;
 use log::info;
 use mini_redis::client;
+use rand::{distr::{Distribution, Uniform}, Rng};
 use vehicle_manager_axum::{init};
 use tokio_stream::StreamExt;
 
@@ -131,4 +132,38 @@ async fn it_publish_test() -> mini_redis::Result<()>{
 
     info!("Done");
     Ok(())
+}
+
+#[test]
+fn it_rng_test01() {
+    init();
+    let mut rng = rand::rng();
+
+    let n1: u8 = rng.random();
+    let n2: u16 = rng.random();
+
+    info!("u8 : {}", n1);
+    info!("u16 : {}", n2);
+    info!("u32: {}", rng.random::<u32>());
+    info!("i32: {}", rng.random::<i32>());
+    info!("float: {}", rng.random::<f64>());
+    
+    info!("{}", rng.random_range(0..10));
+    info!("{}", rng.random_range(0.0..10.0));
+}
+
+#[test]
+fn it_rng_test02() {
+    init();
+    let mut rng = rand::rng();
+    let die: Uniform<u16> = Uniform::try_from(1..7).unwrap();
+
+    loop {
+        let throw = die.sample(&mut rng);
+
+        info!(": {}", throw);
+        if throw == 6 {
+            break;
+        }
+    }
 }
