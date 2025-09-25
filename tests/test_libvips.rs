@@ -211,3 +211,24 @@ fn it_rng_test04() {
     info!("随机密码: {}", rand_string);
 
 }
+
+// 你想设定一组自定义字符，然后从此自定义字符范围内生成一个随机值，
+// 比如创建只包含小写字母、数字，以及特殊字符的随机密码
+#[test]
+fn it_rng_test05() {
+    init();
+    const CHARSET: &[u8] =  b"abcdefghijklmnopqrstuvwxyz\
+                            0123456789)(*&^%$#@!~";
+    const PASSWORD_LEN: usize = 30;
+
+    let mut rng = rand::rng();
+
+    let password: String = (0..PASSWORD_LEN)
+        .map(|_| {
+            let idx = rng.random_range(0..CHARSET.len());
+            CHARSET[idx] as char
+        })
+        .collect();
+    info!("随机密码: {}", password);
+
+}
