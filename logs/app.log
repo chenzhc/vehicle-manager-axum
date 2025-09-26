@@ -44971,3 +44971,30 @@ test,test2
 2025-09-25 18:06:44 INFO tests\test_libvips.rs:209 - 随机密码: NtrrGMKXAN5cdtLRjZrKIThjguajuX
 2025-09-25 18:06:46 INFO tests\test_libvips.rs:209 - 随机密码: t76Rapb7IKh3153UROq1vSYpWPP46v
 2025-09-25 18:11:21 INFO tests\test_libvips.rs:230 - 随机密码: ta6lvpgl0sna1qrtqv&87e5vuk*pb9
+2025-09-26 09:21:30 INFO tests\test_libvips.rs:240 - before sort: [1, 5, 10, 2, 15]
+2025-09-26 09:21:30 INFO tests\test_libvips.rs:243 - after: [1, 2, 5, 10, 15]
+2025-09-26 09:22:33 INFO tests\test_libvips.rs:240 - 排序前: [1, 5, 10, 2, 15]
+2025-09-26 09:22:33 INFO tests\test_libvips.rs:243 - 排序后: [1, 2, 5, 10, 15]
+2025-09-26 09:24:21 INFO tests\test_libvips.rs:240 - 排序前: [1, 5, 10, 2, 15]
+2025-09-26 09:24:21 INFO tests\test_libvips.rs:243 - 排序后: [1, 2, 5, 10, 15]
+2025-09-26 09:24:21 INFO tests\test_libvips.rs:246 - 排序前: [1.1, 1.15, 5.5, 1.123, 2.0]
+2025-09-26 09:24:21 INFO tests\test_libvips.rs:249 - 排序后: [1.1, 1.123, 1.15, 2.0, 5.5]
+2025-09-26 09:28:37 INFO tests\test_libvips.rs:273 - 排序前: [Person { name: "Zhang", age: 25 }, Person { name: "Liu", age: 60 }, Person { name: "Wang", age: 1 }]
+2025-09-26 09:29:08 INFO tests\test_libvips.rs:273 - 排序前: [Person { name: "Zhang", age: 25 }, Person { name: "Liu", age: 60 }, Person { name: "Wang", age: 1 }]
+2025-09-26 09:29:08 INFO tests\test_libvips.rs:276 - 排序后: [Person { name: "Liu", age: 60 }, Person { name: "Wang", age: 1 }, Person { name: "Zhang", age: 25 }]
+2025-09-26 09:29:59 INFO tests\test_libvips.rs:273 - 排序前: [Person { name: "Zhang", age: 25 }, Person { name: "Liu", age: 60 }, Person { name: "Wang", age: 1 }]
+2025-09-26 09:29:59 INFO tests\test_libvips.rs:276 - 排序后: [Person { name: "Liu", age: 60 }, Person { name: "Wang", age: 1 }, Person { name: "Zhang", age: 25 }]
+2025-09-26 09:29:59 INFO tests\test_libvips.rs:279 - 排序后(age): [Person { name: "Liu", age: 60 }, Person { name: "Zhang", age: 25 }, Person { name: "Wang", age: 1 }]
+2025-09-26 10:14:56 INFO tests\test_libvips.rs:364 - Some(25)
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:382 - Source sent 0
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:382 - Source sent 1
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:393 - Worker ThreadId(6) received: 1.
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:393 - Worker ThreadId(5) received: 0.
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:382 - Source sent 2
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:393 - Worker ThreadId(6) received: 2.
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:402 - Sink received 2
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:393 - Worker ThreadId(5) received: 3.
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:382 - Source sent 3
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:402 - Sink received 0
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:402 - Sink received 4
+2025-09-26 10:47:31 INFO tests\test_libvips.rs:402 - Sink received 6

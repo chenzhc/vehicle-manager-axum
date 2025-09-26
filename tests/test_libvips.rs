@@ -5,15 +5,22 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use std::time::Duration;
+use std::{fs::File, io::Write, thread, time::Duration};
+use crossbeam_channel::bounded;
 use deadpool_postgres::{tokio_postgres::NoTls, Config, Manager, ManagerConfig, Pool, RecyclingMethod};
+use flate2::{write::GzEncoder, read::GzDecoder, Compression};
 use futures::channel::oneshot;
 use log::info;
+use log4rs::append::rolling_file::policy;
 use mini_redis::client;
 use rand::{distr::{Distribution, SampleString, Uniform}, Rng};
 use rand_distr::{Alphanumeric, Normal, StandardUniform};
+use tar::{Archive, Builder};
 use vehicle_manager_axum::{init};
 use tokio_stream::StreamExt;
+use zip::{write::FileOptions, ZipWriter};
+extern crate tar;
+extern crate zip;
 
 #[tokio::test]
 async fn it_img_inverted_test() {
@@ -231,4 +238,168 @@ fn it_rng_test05() {
         .collect();
     info!("随机密码: {}", password);
 
+}
+
+#[test]
+fn it_vec_sort_test01() {
+    init();
+    let mut vec = vec![1,5,10,2,15];
+    info!("排序前: {:?}", vec);
+
+    vec.sort();
+    info!("排序后: {:?}", vec);
+
+    let mut vec = vec![1.1, 1.15, 5.5, 1.123, 2.0];
+    info!("排序前: {:?}", vec);
+
+    vec.sort_by(|a, b| a.partial_cmp(b).unwrap());
+    info!("排序后: {:?}", vec);
+}
+
+#[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct Person {
+    name: String, 
+    age: u32,
+}
+
+impl Person {
+    pub fn new(name: &str, age: u32) -> Self {
+        Person { name: name.to_string(), age: age }
+    }
+}
+
+#[test]
+fn it_person_eq_test01() {
+    init();
+    let mut people = vec![
+        Person::new("Zhang", 25),
+        Person::new("Liu", 60),
+        Person::new("Wang", 1),
+    ];
+    info!("排序前: {:?}", people);
+
+    people.sort();
+    info!("排序后: {:?}", people);
+
+    people.sort_by(|a, b| b.age.cmp(&a.age));
+    info!("排序后(age): {:?}", people);
+
+}
+
+#[test]
+fn it_tar_gz_test01() -> anyhow::Result<()> {
+    init();
+    let path = "old_file.tar.gz";
+
+    let tar_gz = File::open(path)?;
+    let tar = GzDecoder::new(tar_gz);
+    let mut archive = Archive::new(tar);
+    archive.unpack(".")?;
+
+    Ok(())
+}
+
+
+#[test]
+fn it_tar_gz_dir_test01() -> anyhow::Result<()> {
+    init();
+    let mut buffer = Vec::new();
+    let mut encoder = GzEncoder::new(&mut buffer, Compression::default());
+    encoder.write_all(b"your_data_to_compose")?;
+    encoder.flush()?;
+
+    let file = File::create("archive.tar").unwrap();
+    let mut builder = Builder::new(file);
+    builder.append_file("1.txt", &mut File::open("./files/1.txt").unwrap()).unwrap();
+
+    Ok(())
+}
+
+#[test]
+fn it_un_tar_file_test01() {
+    init();
+
+    let file = File::open("archive.tar").unwrap();
+    let mut archive = Archive::new(file);
+    archive.unpack("./test/").unwrap();
+
+}
+
+#[test]
+fn it_zip_file_test01() -> anyhow::Result<()> {
+    init();
+    let file = File::create("archive.tar.gz").unwrap();
+    let enc = GzEncoder::new(file, Compression::default());
+    let mut tar_file = tar::Builder::new(enc);
+    tar_file.append_dir_all(".", "./files/1.txt")?;
+
+    Ok(())
+}
+
+// 折半查找 
+fn find_max(arr: &[i32]) -> Option<i32> {
+    const THRSHOLD: usize = 2;
+
+    if arr.len() <= THRSHOLD {
+        return arr.iter().cloned().max();
+    }
+
+    let mid = arr.len() / 2;
+    let (left, right) = arr.split_at(mid);
+
+    crossbeam::scope(|s| {
+        let thread_l = s.spawn(|_| find_max(left));
+        let thread_r = s.spawn(|_| find_max(right));
+
+        let max_l = thread_l.join().unwrap()?;
+        let max_r = thread_r.join().unwrap()?;
+
+        Some(max_l.max(max_r))
+    }).unwrap()
+}
+
+#[test]
+fn it_find_max_test01() {
+    init();
+    let arr = &[1, 25, -4, 10];
+    let max = find_max(arr);
+    info!("{:?}", max);
+
+}
+
+#[test]
+fn it_channel_test04() {
+    init();
+    let (snd1, recv1) = bounded(1);
+    let (snd2, recv2) = bounded(2);
+    let n_msgs = 4;
+    let n_workers = 2;
+
+    crossbeam::scope(|s| {
+        s.spawn(|_| {
+            for i in 0..n_msgs {
+                snd1.send(i).unwrap();
+                info!("Source sent {}", i);
+            }
+
+            drop(snd1);
+        });
+
+        for _ in 0..n_workers {
+            let (sendr, recvr) = (snd2.clone(), recv1.clone());
+            s.spawn(move |_| {
+                thread::sleep(Duration::from_millis(500));
+                for msg in recvr.iter() {
+                    info!("Worker {:?} received: {}.", thread::current().id(), msg);
+                    sendr.send(msg*2).unwrap();
+                }
+            });
+        }
+
+        drop(snd2);
+
+        for msg in recv2.iter() {
+            info!("Sink received {}", msg);
+        }
+    }).unwrap();
 }
