@@ -6,7 +6,7 @@
 #![allow(unused_variables)]
 
 use std::{fs::File, io::Write, thread, time::Duration};
-use crossbeam_channel::bounded;
+use crossbeam_channel::{bounded, unbounded};
 use deadpool_postgres::{tokio_postgres::NoTls, Config, Manager, ManagerConfig, Pool, RecyclingMethod};
 use flate2::{write::GzEncoder, read::GzDecoder, Compression};
 use futures::channel::oneshot;
@@ -370,36 +370,64 @@ fn it_find_max_test01() {
 #[test]
 fn it_channel_test04() {
     init();
+
     let (snd1, recv1) = bounded(1);
     let (snd2, recv2) = bounded(2);
     let n_msgs = 4;
     let n_workers = 2;
 
     crossbeam::scope(|s| {
+        // 生产者线程
         s.spawn(|_| {
             for i in 0..n_msgs {
                 snd1.send(i).unwrap();
                 info!("Source sent {}", i);
             }
-
+            // 关闭信道这是退出的必要条件
             drop(snd1);
         });
 
+        // 由2个线程并行处理
         for _ in 0..n_workers {
+            // 从数据源发送数据到接收器， 接收器接收数据 
             let (sendr, recvr) = (snd2.clone(), recv1.clone());
+            // 在不同的线程中处理数据 
             s.spawn(move |_| {
                 thread::sleep(Duration::from_millis(500));
+                // 接收数据， 直到信道关闭前
                 for msg in recvr.iter() {
                     info!("Worker {:?} received: {}.", thread::current().id(), msg);
                     sendr.send(msg*2).unwrap();
                 }
             });
         }
-
+        // 关闭信道，否则接收器不会关闭
         drop(snd2);
 
+        // 接收数据 
         for msg in recv2.iter() {
             info!("Sink received {}", msg);
         }
     }).unwrap();
+}
+
+// 两个线程间通信
+#[test]
+fn it_channel_test05() {
+    init();
+    let (tx, rx) = unbounded();
+    let n_msgs = 5;
+    crossbeam::scope(|s| {
+        s.spawn(|_| {
+            for i in 0..n_msgs {
+                tx.send(i).unwrap();
+                thread::sleep(Duration::from_millis(100));
+            }
+        });
+    }).unwrap();
+
+    for _ in 0..n_msgs {
+        let msg = rx.recv().unwrap();
+        info!("Received: {}", msg);
+    }
 }
