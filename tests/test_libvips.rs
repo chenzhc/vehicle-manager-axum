@@ -5,7 +5,7 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use std::{fs::File, io::Write, thread, time::Duration};
+use std::{fs::File, io::Write, sync::Mutex, thread, time::Duration};
 use crossbeam_channel::{bounded, unbounded};
 use deadpool_postgres::{tokio_postgres::NoTls, Config, Manager, ManagerConfig, Pool, RecyclingMethod};
 use flate2::{write::GzEncoder, read::GzDecoder, Compression};
@@ -430,4 +430,28 @@ fn it_channel_test05() {
         let msg = rx.recv().unwrap();
         info!("Received: {}", msg);
     }
+}
+
+lazy_static::lazy_static! {
+    static ref FRUIT: Mutex<Vec<String>> = Mutex::new(Vec::new());
+}
+
+fn insert(fruit: &str) -> anyhow::Result<()> {
+    let mut db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard").unwrap();
+    db.push(fruit.to_string());
+    Ok(())
+}
+
+#[test]
+fn it_fruit_insert_test01() -> anyhow::Result<()> {
+    init();
+    insert("apple")?;
+    insert("orange")?;
+    insert("peach")?;
+    {
+        let db = FRUIT.lock().map_err(|_| "Failed to acquire MutexGuard").unwrap();
+        db.iter().enumerate().for_each(|(i, item)| info!("{}: {}", i, item));
+    }
+    insert("grape")?;
+    Ok(())
 }
