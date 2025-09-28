@@ -48,7 +48,8 @@ struct User {
 async fn it_query_sqlite_test01() -> anyhow::Result<()> {
     init();
     let db = SqlitePool::connect(DB_URL).await.unwrap();
-     let result = sqlx::query(
+
+    let result = sqlx::query(
         "SELECT name
          FROM sqlite_schema
          WHERE type ='table' 
