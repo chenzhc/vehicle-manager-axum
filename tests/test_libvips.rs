@@ -5,19 +5,27 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use std::{fs::File, io::Write, sync::Mutex, thread, time::Duration};
+use core::num;
+use std::{fs::{create_dir_all, File}, io::{BufReader, Read, Write}, path::Path, sync::{mpsc::channel, Mutex},   thread, time::Duration};
+use anyhow::Error;
 use crossbeam_channel::{bounded, unbounded};
+use data_encoding::HEXUPPER;
 use deadpool_postgres::{tokio_postgres::NoTls, Config, Manager, ManagerConfig, Pool, RecyclingMethod};
 use flate2::{write::GzEncoder, read::GzDecoder, Compression};
 use futures::channel::oneshot;
+use glob::{glob_with, MatchOptions};
 use log::info;
 use log4rs::append::rolling_file::policy;
 use mini_redis::client;
 use rand::{distr::{Distribution, SampleString, Uniform}, Rng};
 use rand_distr::{Alphanumeric, Normal, StandardUniform};
+use rayon::{iter::{IntoParallelRefIterator, IntoParallelRefMutIterator, ParallelIterator}, slice::ParallelSliceMut};
+use ring::{digest::{Context, Digest, SHA256}, error::Unspecified, hmac, rand::SecureRandom};
 use tar::{Archive, Builder};
+use threadpool::ThreadPool;
 use vehicle_manager_axum::{init};
 use tokio_stream::StreamExt;
+use walkdir::WalkDir;
 use zip::{write::FileOptions, ZipWriter};
 extern crate tar;
 extern crate zip;
@@ -453,5 +461,230 @@ fn it_fruit_insert_test01() -> anyhow::Result<()> {
         db.iter().enumerate().for_each(|(i, item)| info!("{}: {}", i, item));
     }
     insert("grape")?;
+    Ok(())
+}
+
+fn is_exe(entry: &Path, ext: &str) -> bool {
+    match entry.extension() {
+        Some(e) if e.to_string_lossy().to_lowercase() == ext => true,
+        _ => false,
+    }
+}
+
+fn compute_digest<P: AsRef<Path>>(filepath: P) -> Result<(Digest, P), Error> {
+    let mut buf_reader = BufReader::new(File::open(&filepath)?);
+    let mut context = Context::new(&SHA256);
+    let mut buffer = [0; 1024];
+
+    loop {
+        let count = buf_reader.read(&mut buffer)?;
+        if count == 0 {
+            break;
+        }
+        context.update(&buffer[..count]);
+    }
+
+    Ok((context.finish(), filepath))    
+}
+
+#[test]
+fn it_is_exe_test01() {
+    init();
+    let str = "C:/Users/user/下载/ETax.exe";
+    let path = Path::new(str);
+    let rs = is_exe(path, "exe");
+    info!("{}", rs);
+    let digest_rs = compute_digest(path.to_owned()).unwrap();
+    info!("{:?}", digest_rs);
+}
+
+#[test]
+fn it_file_diegest_test01() -> anyhow::Result<()> {
+    init();
+    info!("{:?}", num_cpus::get());
+    let pool = ThreadPool::new(num_cpus::get());
+    info!("{:?}", pool);
+    let (tx, rx) = std::sync::mpsc::channel();
+
+    let root_path = "C:\\Users\\user\\.cargo\\bin";
+    let walk_iter = WalkDir::new(root_path)
+        .follow_links(true)
+        .into_iter()
+        .filter_map(|e| e.ok())
+        .filter(|e| !e.path().is_dir() && is_exe(e.path(), "exe"));
+  
+    for entry in  walk_iter {
+        let path = entry.path().to_owned();
+        let tx = tx.clone();
+        pool.execute(move || {
+            let digest = compute_digest(path);
+            tx.send(digest).expect("Could not send data!");
+        });
+    }
+
+    drop(tx);
+    for t in rx.iter() {
+        let (sha, path) = t?;
+        info!("{:?}, {:?}", sha, path);
+    }
+
+    Ok(())
+}
+
+#[test]
+fn it_rayon_test01() {
+    init();
+    let mut arr = [0,7,9,11];
+    arr.par_iter_mut().for_each(|p| *p = -1);
+    info!("{:?}", arr);
+
+    let mut vec = vec![2,4,6,8];
+
+    info!("{:?}", vec.par_iter().all(|n| (*n % 2) ==0 ));
+
+    let v = vec![6,2,1,9,3,8,11];
+    let f1 = v.par_iter().find_any(|&&x| x==9);
+    let f2 = v.par_iter().find_any(|&&x| x >8);
+    info!("{:?}", f2);
+    info!("{:?}", f1);
+
+    let mut vec = vec![String::new(); 100_000];
+    vec.par_iter_mut().for_each(|p| {
+        let mut rng = rand::rng();
+        *p = (0..5).map(|_| rng.sample(&Alphanumeric) as char).collect()
+    });
+
+    vec.par_sort_unstable();
+    info!("{:?}", vec);
+
+}
+
+struct Person2 {
+    age: u32,
+}
+
+#[test]
+fn it_reduce_test() {
+    init();
+    let v: Vec<Person2> = vec![
+        Person2 { age: 23},
+        Person2 { age: 19},
+        Person2 { age: 42},
+        Person2 { age: 17},
+        Person2 { age: 17},
+        Person2 { age: 31},
+        Person2 { age: 30},
+    ];
+
+    let num_over_30 = v.par_iter().filter(|&x| x.age > 30).count() as f32;
+    info!("num_over_30: {}", num_over_30);
+    let sum_over_30 = v.par_iter()
+        .map(|x| x.age)
+        .filter(|&x| x > 30)
+        .reduce(|| 0, |x,y| x + y);
+    info!("sum over 30: {}", sum_over_30);
+
+    let alt_sum_30: u32 = v.par_iter()
+        .map(|x| x.age)
+        .filter(|&x| x > 30)
+        .sum();
+    info!("alt sum 30: {}", alt_sum_30);
+
+    let avg_over_30 = sum_over_30 as f32 / num_over_30;
+    let alt_avg_over_30 = alt_sum_30 as f32 / num_over_30;
+    info!("{}, {}", avg_over_30, alt_avg_over_30);
+
+}
+
+#[test]
+fn it_glob_test01() -> anyhow::Result<()> {
+    init();
+    let options: MatchOptions = Default::default();
+
+    let files: Vec<_> = glob_with("C:\\Users\\user\\Pictures\\*.jpg", options)?
+        .filter_map(|x| x.ok())
+        .collect();
+
+    if files.len() == 0 {
+        info!("No .jpg files found in current directory!");
+        return Ok(());
+    }
+
+    let thumb_dir = "thumbnails";
+    create_dir_all(thumb_dir)?;
+    info!("Saving {} thumbnails into '{}'...", files.len(), thumb_dir);
+
+    let image_failures: Vec<_> = files
+        .par_iter()
+        .map(|path| {
+            make_thumbnail(path, thumb_dir, 300).unwrap() 
+        })
+        .collect();
+
+    Ok(())
+}
+
+use error_chain::error_chain;
+
+fn make_thumbnail<PA, PB>(original: PA, thumb_dir: PB, longest_edge: u32) -> anyhow::Result<()> 
+    where 
+        PA: AsRef<Path>,
+        PB: AsRef<Path>
+{
+    let img = image::open(original.as_ref())?;
+    let file_path = thumb_dir.as_ref().join(original);
+
+    Ok(img.resize(longest_edge, longest_edge, image::imageops::FilterType::Nearest)
+        .save(file_path)?)
+}
+
+fn sha256_diget<R: Read>(mut reader: R) -> anyhow::Result<Digest> {
+    let mut context = Context::new(&SHA256);
+    let mut buf = [0; 1024];
+
+    loop {
+        let count = reader.read(&mut buf)?;
+        if count == 0 {
+            break;
+        }
+        context.update(&buf[..count]);
+    }
+    Ok(context.finish())
+}
+
+#[test]
+fn it_file_sha256_diget_test01() -> anyhow::Result<()> {
+    init();
+    let path = "files/file.txt";
+    let mut output = File::create(path)?;
+    write!(output, "We will generate a digest of this text")?;
+
+    let input = File::open(path)?;
+    let reader = BufReader::new(input);
+    let digest = sha256_diget(reader)?;
+
+    info!("SHA-256 digest is {}", HEXUPPER.encode(digest.as_ref()));
+
+    Ok(())
+}
+
+// 使用 HMAC 摘要对消息进行签名和验证
+#[test]
+fn it_msg_hmac_sign_test01() -> anyhow::Result<(), Unspecified>{
+    init();
+    let mut key_value = [0u8; 48];
+    let rng = ring::rand::SystemRandom::new();
+    rng.fill(&mut key_value)?;
+
+    let key = hmac::Key::new(hmac::HMAC_SHA256, &key_value);
+
+    let msg = "Legitimate and important message.";
+    info!("{}", msg);
+
+    let signature = hmac::sign(&key, msg.as_bytes());
+    info!("{:?}", &signature);
+
+    hmac::verify(&key, msg.as_bytes(), signature.as_ref())?;
+
     Ok(())
 }
