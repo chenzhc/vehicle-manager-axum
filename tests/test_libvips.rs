@@ -6,7 +6,7 @@
 #![allow(unused_variables)]
 
 use core::num;
-use std::{fs::{create_dir_all, File}, io::{BufReader, Read, Write}, path::Path, sync::{mpsc::channel, Mutex},   thread, time::Duration};
+use std::{fs::{create_dir_all, File}, io::{BufReader, Read, Write}, num::NonZeroU32, path::Path, sync::{mpsc::channel, Mutex}, thread, time::Duration};
 use anyhow::Error;
 use crossbeam_channel::{bounded, unbounded};
 use data_encoding::HEXUPPER;
@@ -20,7 +20,7 @@ use mini_redis::client;
 use rand::{distr::{Distribution, SampleString, Uniform}, Rng};
 use rand_distr::{Alphanumeric, Normal, StandardUniform};
 use rayon::{iter::{IntoParallelRefIterator, IntoParallelRefMutIterator, ParallelIterator}, slice::ParallelSliceMut};
-use ring::{digest::{Context, Digest, SHA256}, error::Unspecified, hmac, rand::SecureRandom};
+use ring::{digest::{self, Context, Digest, SHA256}, error::Unspecified, hmac, pbkdf2, rand::SecureRandom};
 use tar::{Archive, Builder};
 use threadpool::ThreadPool;
 use vehicle_manager_axum::{init};
@@ -688,3 +688,69 @@ fn it_msg_hmac_sign_test01() -> anyhow::Result<(), Unspecified>{
 
     Ok(())
 }
+
+
+#[test]
+fn it_pwd_salt_test01() -> anyhow::Result<(), Unspecified> { 
+    init();
+    const CREDENTIAL_LEN: usize = digest::SHA512_OUTPUT_LEN;
+    let n_iter = NonZeroU32::new(100_0000).unwrap();
+    let rng = ring::rand::SystemRandom::new();
+
+    let mut salt = [0u8; CREDENTIAL_LEN];
+    rng.fill(&mut salt)?;
+
+    let password = "Guess Me If You Can";
+    let mut pbkdf2_hash = [0u8; CREDENTIAL_LEN];
+    pbkdf2::derive(pbkdf2::PBKDF2_HMAC_SHA512,
+         n_iter, 
+         &salt, 
+         password.as_bytes(), 
+         &mut pbkdf2_hash);
+        
+    info!("Salt: {:?}", &salt);
+    info!("Salt: {}", HEXUPPER.encode(&salt));
+
+    info!("PBKDF2 hash: {:?}", &pbkdf2_hash);
+    info!("PBKDF2 hash: {}", HEXUPPER.encode(&pbkdf2_hash));
+
+    let should_succeed = pbkdf2::verify(
+        pbkdf2::PBKDF2_HMAC_SHA512,
+        n_iter,
+        &salt,
+        password.as_bytes(),
+        &pbkdf2_hash,
+    );
+
+    let wrong_password = "Definitely not the corret password";
+    let should_fail = pbkdf2::verify(pbkdf2::PBKDF2_HMAC_SHA512, 
+        n_iter, 
+        &salt, 
+        wrong_password.as_bytes(), 
+        &pbkdf2_hash);
+
+    info!("{:?}", should_succeed.is_ok());
+    info!("{:?}", should_fail.is_ok());
+    Ok(())
+}
+
+use bitflags::bitflags ;
+
+bitflags! {
+    struct MyFlags: u32 {
+        const FLAG_A       = 0b00000001;
+        const FLAG_B       = 0b00000010;
+        const FLAG_C       = 0b00000100;
+        const FLAG_ABC     = Self::FLAG_A.bits()
+                           | Self::FLAG_B.bits()
+                           | Self::FLAG_C.bits();
+    }
+}
+
+impl MyFlags {
+    pub fn clear(&mut self) -> &mut MyFlags {
+        // self.;
+        self
+    }
+}
+
