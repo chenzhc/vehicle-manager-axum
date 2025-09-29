@@ -4,12 +4,10 @@
 )]
 #![allow(dead_code)]
 #![allow(unused_variables)]
-use std::any::Any;
-
+use std::{any::Any, env};
 use log::info;
-use sqlx::{migrate::MigrateDatabase, FromRow, Sqlite, SqlitePool};
+use sqlx::{migrate::MigrateDatabase, postgres::PgPoolOptions, FromRow, Sqlite, SqlitePool};
 use vehicle_manager_axum::init;
-
 const DB_URL: &str = "sqlite://sqlite.db";
 
 #[tokio::test]
@@ -75,6 +73,36 @@ async fn it_query_sqlite_test01() -> anyhow::Result<()> {
     for user in user_results {
         info!("[{}] name: {}", user.id, &user.name);
     }
+
+    Ok(())
+}
+
+
+#[tokio::test]
+async fn it_pg_batch_execute_test01() -> anyhow::Result<()> {
+    init();
+     // 获取数据库连接 url
+    let database_url = env::var("PG_DATABASE_URL").expect("PG_DATABASE_URL must be set");
+
+    let pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&database_url)
+        .await?;
+    let row: (i64,) = sqlx::query_as("SELECT $1")
+        .bind(150_i64)
+        .fetch_one(&pool).await?;
+    info!("{:?}", row);
+
+    let rs = sqlx::query(
+        " CREATE TABLE IF NOT EXISTS book  (
+            id              SERIAL PRIMARY KEY,
+            title           VARCHAR NOT NULL,
+            author_id       INTEGER NOT NULL REFERENCES author
+            )"
+    )
+    .execute(&pool)
+    .await?;
+    info!("{:?}", rs);
 
     Ok(())
 }

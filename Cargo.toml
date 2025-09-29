@@ -61,5 +61,6 @@ error-chain = "0.12.4"
 data-encoding = "2.9.0"
 bitflags = "2.9.4"
 sqlx = { version = "0.8.6", features = ["derive","macros","uuid","runtime-tokio","runtime-tokio-native-tls", "postgres", "mysql", "sqlite","chrono","bigdecimal","json"] }
+postgres = "0.19.11"
 
 
